@@ -13,7 +13,7 @@ import axios from 'axios';
 import DatePicker from 'react-native-datepicker'
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { maskJs } from 'mask-js';
-export default function SAddSuami({ navigation, route }) {
+export default function SAddTrf({ navigation, route }) {
 
     const [foto, setfoto] = useState('https://zavalabs.com/nogambar.jpg');
 
@@ -38,7 +38,7 @@ export default function SAddSuami({ navigation, route }) {
                         case 1:
                             setKirim({
                                 ...kirim,
-                                suami_foto: `data:${response.type};base64, ${response.base64}`,
+                                foto_transfer: `data:${response.type};base64, ${response.base64}`,
                             });
                             break;
                     }
@@ -73,7 +73,7 @@ export default function SAddSuami({ navigation, route }) {
                 </Text>
                 <Image
                     source={{
-                        uri: !kirim.suami_foto ? 'https://zavalabs.com/nogambar.jpg' : kirim.suami_foto,
+                        uri: !kirim.transfer_foto ? 'https://zavalabs.com/nogambar.jpg' : kirim.transfer_foto,
                     }}
                     style={{
                         width: '50%',
@@ -110,7 +110,13 @@ export default function SAddSuami({ navigation, route }) {
 
     const sendServer = () => {
         console.log(kirim);
-        navigation.navigate('SAddIstri', kirim);
+        setLoading(true);
+        axios.post(apiURL + '1add_nikah.php', kirim).then(res => {
+            setLoading(false);
+            Alert.alert('SiDani', 'Selamat perintaan kamu berhasil dikirim !');
+            navigation.replace('Home');
+            console.log(res.data);
+        })
 
     }
 
@@ -124,83 +130,85 @@ export default function SAddSuami({ navigation, route }) {
 
             <ScrollView showsVerticalScrollIndicator={false}>
 
-                <MyInput value={kirim.suami_nama} label="Nama" onChangeText={x => {
+                <Text style={{
+                    fontFamily: fonts.secondary[600],
+                    fontSize: windowWidth / 30,
+                }}>Total Pembayaran</Text>
+                <Text style={{
+                    fontFamily: fonts.secondary[400],
+                    fontSize: windowWidth / 25,
+                }}>Rp. 600.000</Text>
 
-                    setKirim({
-                        ...kirim,
-                        suami_nama: x
-                    })
-                }} iconname="person" placeholder="masukan nama" />
-                <MyGap jarak={10} />
-                <MyInput value={kirim.suami_tempat_lahir} label="Tempat dan Tanggal lahir" onChangeText={x => {
+                <Text style={{
+                    marginTop: 10,
+                    fontFamily: fonts.secondary[600],
+                    fontSize: windowWidth / 30,
+                }}>Silahkan melakukan transfer ke :</Text>
+                <View style={{
+                    marginTop: 10,
+                    flexDirection: 'row'
+                }}>
+                    <Text style={{
+                        flex: 0.4,
+                        fontFamily: fonts.secondary[400],
+                        fontSize: windowWidth / 25,
+                    }}>Bank</Text>
+                    <Text style={{
+                        flex: 0.1,
+                        fontFamily: fonts.secondary[400],
+                        fontSize: windowWidth / 25,
+                    }}>:</Text>
+                    <Text style={{
+                        flex: 1,
+                        fontFamily: fonts.secondary[400],
+                        fontSize: windowWidth / 25,
+                    }}>Bank Syariah Indonesia</Text>
+                </View>
+                <View style={{
+                    flexDirection: 'row'
+                }}>
+                    <Text style={{
+                        flex: 0.4,
+                        fontFamily: fonts.secondary[400],
+                        fontSize: windowWidth / 25,
+                    }}>Rekening</Text>
+                    <Text style={{
+                        flex: 0.1,
+                        fontFamily: fonts.secondary[400],
+                        fontSize: windowWidth / 25,
+                    }}>:</Text>
+                    <Text style={{
+                        flex: 1,
+                        fontFamily: fonts.secondary[400],
+                        fontSize: windowWidth / 25,
+                    }}>7199478049</Text>
+                </View>
+                <View style={{
+                    flexDirection: 'row'
+                }}>
+                    <Text style={{
+                        flex: 0.4,
+                        fontFamily: fonts.secondary[400],
+                        fontSize: windowWidth / 25,
+                    }}>Atas Nama</Text>
+                    <Text style={{
+                        flex: 0.1,
+                        fontFamily: fonts.secondary[400],
+                        fontSize: windowWidth / 25,
+                    }}>:</Text>
+                    <Text style={{
+                        flex: 1,
+                        fontFamily: fonts.secondary[400],
+                        fontSize: windowWidth / 25,
+                    }}>UPTD Masjid Agung Baitul Makmur</Text>
+                </View>
 
-                    setKirim({
-                        ...kirim,
-                        suami_tempat_lahir: x
-                    })
-                }} iconname="person" placeholder="masukan tempat lahir" />
-                <MyGap jarak={10} />
-                <DatePicker
-                    style={{ width: '100%' }}
-                    date={kirim.suami_tanggal_lahir}
-                    mode="date"
-                    placeholder="pilih tanggal lahir"
-                    format="YYYY-MM-DD"
-                    confirmBtnText="Confirm"
-                    cancelBtnText="Cancel"
-                    customStyles={{
-                        dateIcon: {
-                            position: 'absolute',
-                            left: 0,
-                            top: 4,
-                            marginLeft: 0
-                        },
-                        dateInput: {
-                            backgroundColor: colors.zavalabs,
-                            borderColor: colors.zavalabs,
-                            borderRadius: 10,
-                            // borderWidth: 1,
-                            paddingLeft: 10,
-                            color: colors.black,
-                            fontSize: 12,
-                            fontFamily: fonts.primary[400],
 
-                        }
-                        // ... You can check the source to find the other keys.
-                    }}
-                    onDateChange={(date) => setKirim({ ...kirim, suami_tanggal_lahir: date })}
-                />
-
-                <MyGap jarak={10} />
-                <MyInput value={kirim.suami_pekerjaan} label="Pekerjaan" onChangeText={x => {
-
-                    setKirim({
-                        ...kirim,
-                        suami_pekerjaan: x
-                    })
-                }} iconname="clipboard" placeholder="masukan pekerjaan" />
-                <MyGap jarak={10} />
-                <MyInput keyboardType="number-pad" maxLength={15} value={kirim.suami_telepon} label="Telepon / Nomor HP" onChangeText={x => {
-
-                    setKirim({
-                        ...kirim,
-                        suami_telepon: x
-                    })
-                }} iconname="call" placeholder="masukan telepon" />
-                <MyGap jarak={10} />
-
-                <MyInput value={kirim.suami_alamat} label="Alamat" onChangeText={x => {
-
-                    setKirim({
-                        ...kirim,
-                        suami_alamat: x
-                    })
-                }} iconname="home" placeholder="masukan alamat" />
 
                 <MyGap jarak={20} />
-                <UploadFoto onPress2={() => getGallery(1)} label="Upload pas foto (latar biru)" />
+                <UploadFoto onPress2={() => getGallery(1)} label="Upload Bukti Transfer" />
                 <MyGap jarak={20} />
-                {!loading && <MyButton onPress={sendServer} title="Selanjutnya" warna={colors.primary} Icons="person-add" />}
+                {!loading && <MyButton onPress={sendServer} title="Simpan" warna={colors.primary} Icons="person-add" />}
 
                 {loading && <ActivityIndicator size="large" color={colors.primary} />
                 }

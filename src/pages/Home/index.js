@@ -135,13 +135,13 @@ export default function Home({ navigation }) {
 
       <Image source={require('../../assets/slide.png')} style={{
         width: windowWidth,
-        height: 300,
+        height: 200,
       }} />
 
 
       <View style={{
         flex: 1,
-        justifyContent: 'center'
+        paddingTop: 20,
       }}>
         <View style={{
           flexDirection: 'row',
@@ -149,19 +149,19 @@ export default function Home({ navigation }) {
         }}>
           <TouchableOpacity onPress={() => navigation.navigate('SAdd', user)} style={{
             backgroundColor: colors.primary,
-            width: windowWidth / 2.5,
-            height: windowHeight / 4,
+            width: windowWidth / 4,
+            height: windowHeight / 9,
             padding: 15,
             borderRadius: 10,
           }}>
             <Image source={require('../../assets/A1.png')} style={{
-              width: windowWidth / 2.5,
-              height: windowHeight / 5,
+              width: windowWidth / 5,
+              height: windowHeight / 20,
               resizeMode: 'contain'
             }} />
             <Text style={{
               fontFamily: fonts.secondary[400],
-              fontSize: windowWidth / 35,
+              fontSize: windowWidth / 38,
               color: colors.white,
               textAlign: 'center',
               marginTop: '2%'
@@ -170,18 +170,18 @@ export default function Home({ navigation }) {
           <TouchableOpacity onPress={() => navigation.navigate('TimList')} style={{
             borderRadius: 10,
             backgroundColor: colors.primary,
-            width: windowWidth / 2.5,
-            height: windowHeight / 4,
+            width: windowWidth / 4,
+            height: windowHeight / 9,
             padding: 15,
           }}>
             <Image source={require('../../assets/A2.png')} style={{
-              width: windowWidth / 2.5,
-              height: windowHeight / 5,
+              width: windowWidth / 5,
+              height: windowHeight / 20,
               resizeMode: 'contain'
             }} />
             <Text style={{
               fontFamily: fonts.secondary[400],
-              fontSize: windowWidth / 35,
+              fontSize: windowWidth / 38,
               color: colors.white,
               textAlign: 'center',
               marginTop: '2%'

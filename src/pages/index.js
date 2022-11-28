@@ -20,6 +20,7 @@ import TimMulai from './TimMulai';
 import TimHasil from './TimHasil';
 import SAddSuami from './SAddSuami';
 import SAddIstri from './SAddIstri';
+import SAddTrf from './SAddTrf';
 
 
 
@@ -56,6 +57,7 @@ export {
   TimMulai,
   TimHasil,
   SAddSuami,
-  SAddIstri
+  SAddIstri,
+  SAddTrf
 
 };

@@ -24,6 +24,7 @@ import {
   TimHasil,
   SAddSuami,
   SAddIstri,
+  SAddTrf,
 } from '../pages';
 import { colors } from '../utils';
 
@@ -84,6 +85,19 @@ export default function Router() {
         options={{
           headerShown: true,
           headerTitle: 'Daftar Nikah Calon Istri',
+          headerStyle: {
+            backgroundColor: colors.primary,
+          },
+          headerTintColor: '#fff',
+        }}
+      />
+
+      <Stack.Screen
+        name="SAddTrf"
+        component={SAddTrf}
+        options={{
+          headerShown: true,
+          headerTitle: 'Daftar Nikah Pembayaran',
           headerStyle: {
             backgroundColor: colors.primary,
           },

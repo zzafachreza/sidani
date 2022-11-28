@@ -110,6 +110,8 @@ export default function SAddIstri({ navigation, route }) {
 
     const sendServer = () => {
         console.log(kirim);
+        navigation.navigate('SAddTrf', kirim);
+
 
     }
 
@@ -141,7 +143,7 @@ export default function SAddIstri({ navigation, route }) {
                 <MyGap jarak={10} />
                 <DatePicker
                     style={{ width: '100%' }}
-                    date={kirim.tanggal_lahir_suami}
+                    date={kirim.istri_tanggal_lahir}
                     mode="date"
                     placeholder="pilih tanggal lahir"
                     format="YYYY-MM-DD"
@@ -167,7 +169,7 @@ export default function SAddIstri({ navigation, route }) {
                         }
                         // ... You can check the source to find the other keys.
                     }}
-                    onDateChange={(date) => setKirim({ ...kirim, tanggal_lahir_suami: date })}
+                    onDateChange={(date) => setKirim({ ...kirim, istri_tanggal_lahir: date })}
                 />
 
                 <MyGap jarak={10} />
