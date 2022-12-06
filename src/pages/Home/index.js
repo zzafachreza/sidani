@@ -193,7 +193,53 @@ export default function Home({ navigation }) {
 
 
 
+      <View style={{
+        flexDirection: 'row',
+        borderTopWidth: 1,
+        borderTopColor: colors.primary,
+      }}>
+        <TouchableOpacity onPress={() => {
 
+          navigation.navigate('STentang')
+        }} style={{
+          padding: 10,
+          width: windowWidth / 2,
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}>
+          <Icon color={colors.primary} type='ionicon' name='person-outline' />
+          <Text style={{
+            fontFamily: fonts.secondary[600],
+            fontSize: windowWidth / 38,
+            color: colors.primary,
+          }}>Akun</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => Alert.alert('SiDani', 'Apakah kamu yakin akan keluar ?', [
+          {
+            text: 'Tidak',
+            type: 'cancel'
+          },
+          {
+            text: 'Keluar',
+            onPress: () => {
+              storeData(null);
+              navigation.replace('Login')
+            }
+          }
+        ])} style={{
+          padding: 10,
+          width: windowWidth / 2,
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}>
+          <Icon color={colors.primary} type='ionicon' name='log-out-outline' />
+          <Text style={{
+            fontFamily: fonts.secondary[600],
+            fontSize: windowWidth / 38,
+            color: colors.primary,
+          }}>Keluar</Text>
+        </TouchableOpacity>
+      </View>
 
 
     </SafeAreaView >

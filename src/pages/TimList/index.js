@@ -55,9 +55,23 @@ export default function TimList({ navigation }) {
                 padding: 10,
                 marginVertical: 5,
                 flex: 1,
-                backgroundColor: colors.secondary,
+                backgroundColor: colors.white,
+                borderBottomWidth: 1,
+                borderBottomColor: colors.border,
                 flexDirection: 'row'
             }}>
+                <View style={{
+                    paddingRight: 5,
+                }}>
+                    <Image source={{
+                        uri: item.image
+                    }} style={{
+                        height: 60,
+                        borderRadius: 10,
+                        width: 50,
+                    }} />
+                </View>
+
                 <View style={{
                     flex: 1,
                 }}>
@@ -85,12 +99,12 @@ export default function TimList({ navigation }) {
                     alignItems: 'center',
                     marginRight: 5,
                     backgroundColor: colors.primary,
-                    paddingHorizontal: 20,
-                    paddingVertical: 10,
+                    paddingHorizontal: 10,
+                    paddingVertical: 5,
                     borderRadius: 5,
                     flexDirection: 'row'
                 }}>
-                    <Icon type='ionicon' name='search' color={colors.white} />
+                    <Icon type='ionicon' name='search' color={colors.white} size={15} />
                     <Text style={{
                         left: 5,
                         color: colors.white,

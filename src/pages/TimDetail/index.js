@@ -42,6 +42,16 @@ export default function TimDetail({ navigation, route }) {
             }}>
                 Masjid Agung Baitul Makmur Meulaboh
             </Text>
+            <Image source={{
+                uri: item.image
+            }} style={{
+                marginTop: 10,
+                borderRadius: 10,
+                height: 200,
+                width: windowWidth / 3,
+                resizeMode: 'contain',
+                alignSelf: 'center'
+            }} />
             <Text style={{
                 color: colors.black,
                 fontFamily: fonts.secondary[400],

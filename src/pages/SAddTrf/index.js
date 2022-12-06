@@ -73,7 +73,7 @@ export default function SAddTrf({ navigation, route }) {
                 </Text>
                 <Image
                     source={{
-                        uri: !kirim.transfer_foto ? 'https://zavalabs.com/nogambar.jpg' : kirim.transfer_foto,
+                        uri: !kirim.foto_transfer ? 'https://zavalabs.com/nogambar.jpg' : kirim.foto_transfer,
                     }}
                     style={{
                         width: '50%',
@@ -137,7 +137,7 @@ export default function SAddTrf({ navigation, route }) {
                 <Text style={{
                     fontFamily: fonts.secondary[400],
                     fontSize: windowWidth / 25,
-                }}>Rp. 600.000</Text>
+                }}>Rp. 750.0{new Date().getSeconds()}</Text>
 
                 <Text style={{
                     marginTop: 10,

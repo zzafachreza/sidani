@@ -19,7 +19,7 @@ export default function SAdd({ navigation, route }) {
     const [kirim, setKirim] = useState({
         fid_user: route.params.id,
         tanggal: new Date(),
-        waktu: '',
+        waktu: '08.00 - 09.00 WIB',
         oleh: 'Wali Sendiri',
         lokasi: 'Masjid Agung Baitul Makmur Meulaboh'
     });
@@ -29,7 +29,14 @@ export default function SAdd({ navigation, route }) {
 
     const sendServer = () => {
         console.log(kirim);
-        navigation.navigate('SAddSuami', kirim);
+        axios.post(apiURL + '1cek.php', kirim).then(res => {
+            console.log(res.data);
+            if (res.data == 404) {
+                Alert.alert('SiDani', 'Maaf Tanggal dan Waktu sudah terisi, silahkan ganti tanggal atau waktu yang lain');
+            } else {
+                navigation.navigate('SAddSuami', kirim);
+            }
+        })
     }
 
     return (
@@ -133,13 +140,49 @@ export default function SAdd({ navigation, route }) {
                     fontSize: windowWidth / 32,
                 }}>17.00 - 18.00 WIB</Text>
                 <MyGap jarak={10} />
-                <MyInput keyboardType="number-pad" maxLength={5} value={kirim.waktu} label="Waktu" onChangeText={x => {
-                    console.log(maskJs('99:99', x))
+                <MyPicker onValueChange={x => {
                     setKirim({
                         ...kirim,
-                        waktu: maskJs('99:99', x)
+                        waktu: x
                     })
-                }} iconname="person" placeholder="masukan waktu" />
+                }} iconname="time" label="Waktu" data={[
+
+                    {
+                        label: '08.00 - 09.00 WIB',
+                        value: '08.00 - 09.00 WIB'
+
+                    },
+                    {
+                        label: '09.00 - 10.00 WIB',
+                        value: '09.00 - 10.00 WIB'
+
+                    },
+                    {
+                        label: '10.00 - 11.00 WIB',
+                        value: '10.00 - 11.00 WIB'
+
+                    }, {
+                        label: '11.00 - 12.00 WIB',
+                        value: '11.00 - 12.00 WIB'
+
+                    },
+                    {
+                        label: '14.00 - 15.00 WIB',
+                        value: '14.00 - 15.00 WIB'
+
+                    },
+                    {
+                        label: '15.00 - 16.00 WIB',
+                        value: '15.00 - 16.00 WIB'
+
+                    },
+                    {
+                        label: '17.00 - 18.00 WIB',
+                        value: '17.00 - 18.00 WIB'
+
+                    },
+
+                ]} />
                 <MyGap jarak={10} />
                 <MyPicker onValueChange={x => {
                     setKirim({
