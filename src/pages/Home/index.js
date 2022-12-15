@@ -1,4 +1,4 @@
-import { Alert, StyleSheet, Text, View, Image, FlatList } from 'react-native'
+import { Alert, StyleSheet, Text, View, Image, FlatList, ImageBackground } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { apiURL, getData, storeData } from '../../utils/localStorage';
@@ -18,13 +18,24 @@ export default function Home({ navigation }) {
 
   const [user, setUser] = useState({});
   const [data, setData] = useState([]);
+  const [slider, setSlider] = useState({});
   const isFocused = useIsFocused();
   useEffect(() => {
     if (isFocused) {
       __getTransaction();
+      __getSlider();
     }
 
   }, [isFocused]);
+
+  const __getSlider = async () => {
+
+    axios.post(apiURL + '1slider.php').then(res => {
+      console.log(res.data);
+      setSlider(res.data);
+    })
+
+  }
 
   const __getTransaction = () => {
     getData('user').then(res => {
@@ -82,6 +93,7 @@ export default function Home({ navigation }) {
 
 
   return (
+
     <SafeAreaView style={{
       flex: 1,
       backgroundColor: colors.white,
@@ -133,13 +145,15 @@ export default function Home({ navigation }) {
 
       </View>
 
-      <Image source={require('../../assets/slide.png')} style={{
+      <Image source={{
+        uri: 'https://sidani.zavalabs.com/' + slider.foto
+      }} style={{
         width: windowWidth,
         height: 200,
       }} />
 
 
-      <View style={{
+      <ImageBackground source={require('../../assets/bck.png')} style={{
         flex: 1,
         paddingTop: 20,
       }}>
@@ -188,7 +202,7 @@ export default function Home({ navigation }) {
             }}>Khutbah Jum'at</Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </ImageBackground>
 
 
 
@@ -203,7 +217,7 @@ export default function Home({ navigation }) {
           navigation.navigate('STentang')
         }} style={{
           padding: 10,
-          width: windowWidth / 2,
+          width: windowWidth / 3,
           justifyContent: 'center',
           alignItems: 'center'
         }}>
@@ -213,6 +227,22 @@ export default function Home({ navigation }) {
             fontSize: windowWidth / 38,
             color: colors.primary,
           }}>Akun</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => {
+
+          navigation.navigate('SCek')
+        }} style={{
+          padding: 10,
+          width: windowWidth / 3,
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}>
+          <Icon color={colors.primary} type='ionicon' name='newspaper-outline' />
+          <Text style={{
+            fontFamily: fonts.secondary[600],
+            fontSize: windowWidth / 38,
+            color: colors.primary,
+          }}>Riwayat</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => Alert.alert('SiDani', 'Apakah kamu yakin akan keluar ?', [
           {
@@ -228,7 +258,7 @@ export default function Home({ navigation }) {
           }
         ])} style={{
           padding: 10,
-          width: windowWidth / 2,
+          width: windowWidth / 3,
           justifyContent: 'center',
           alignItems: 'center'
         }}>
@@ -243,6 +273,7 @@ export default function Home({ navigation }) {
 
 
     </SafeAreaView >
+
   )
 }
 

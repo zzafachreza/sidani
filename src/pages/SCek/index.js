@@ -18,25 +18,27 @@ import Share from 'react-native-share';
 export default function SCek({ navigation, route }) {
     const item = route.params;
     const [data, setData] = useState([]);
-    const [anggota, setAnggota] = useState([]);
+
     const ref = useRef();
 
     const isFocused = useIsFocused();
     useEffect(() => {
         if (isFocused) {
-            getDataAnggota();
+            getDataTransaction();
         }
 
     }, [isFocused]);
 
 
 
-    const getDataAnggota = () => {
-        axios.post(apiURL + '1data_hadir.php', {
-            fid_acara: route.params.id_acara
-        }).then(res => {
-            console.log(res.data);
-            setAnggota(res.data);
+    const getDataTransaction = () => {
+        getData('user').then(u => {
+            axios.post(apiURL + '1data_nikah.php', {
+                fid_user: u.id
+            }).then(res => {
+                console.log(res.data);
+                setData(res.data);
+            })
         })
     }
 
@@ -49,157 +51,182 @@ export default function SCek({ navigation, route }) {
             backgroundColor: colors.white
         }}>
 
-            <View style={{
-                padding: 10,
-                backgroundColor: colors.primary,
-            }}>
-                <Text style={{
-                    fontFamily: fonts.secondary[600],
-                    fontSize: windowWidth / 30,
-                    color: colors.white,
-                    textAlign: 'center'
-                }}>{item.acara}</Text>
-                <Text style={{
-                    fontFamily: fonts.secondary[400],
-                    fontSize: windowWidth / 35,
-                    color: colors.white,
-                    textAlign: 'center'
-                }}>{item.tanggal}</Text>
-
-                <MyInput placeholder="cari nama anggota" onChangeText={x => {
-                    console.log(x);
-                    const filtered = anggota.filter(i => i.nama.toLowerCase().indexOf(x.toLowerCase()) > -1);
-                    console.log('filtered', filtered.length);
-                    setAnggota(filtered);
-                    if (x.length == 0) {
-                        getDataAnggota()
-                    } else {
-                        setAnggota(filtered);
-                    }
-                }} />
-            </View>
-            <ScrollView style={{
-                flex: 1,
-            }}>
-                {anggota.map(i => {
-                    return (
+            {data.map(i => {
+                return (
+                    <View style={{
+                        padding: 10,
+                        margin: 10,
+                        borderRadius: 10,
+                        borderWidth: 1,
+                        borderColor: colors.primary,
+                    }} >
                         <View style={{
-                            margin: 5,
-                            borderBottomWidth: 1,
-                            borderBottomColor: colors.zavalabs,
                             flexDirection: 'row'
                         }}>
-                            <Text style={{
-                                flex: 0.5,
-                                fontFamily: fonts.secondary[400],
-                                fontSize: windowWidth / 30,
-                                color: colors.primary,
-                            }}>{i.pin} </Text>
                             <View style={{
                                 flex: 1,
                             }}>
                                 <Text style={{
-
                                     fontFamily: fonts.secondary[600],
-                                    fontSize: windowWidth / 28,
+                                    fontSize: windowWidth / 38,
                                     color: colors.black,
-                                }}>{i.nama} </Text>
+                                }}>{i.tanggal}</Text>
                                 <Text style={{
-
                                     fontFamily: fonts.secondary[600],
-                                    fontSize: windowWidth / 28,
+                                    fontSize: windowWidth / 38,
                                     color: colors.black,
-                                }}>{i.telepon} </Text>
+                                }}>{i.waktu}</Text>
                             </View>
-                            {i.status == 'Hadir' && <View>
+
+                            <View style={{
+
+                            }}>
                                 <Text style={{
-                                    flex: 0.3,
-                                    textAlign: 'center',
                                     fontFamily: fonts.secondary[600],
                                     fontSize: windowWidth / 30,
                                     color: colors.black,
-                                    paddingHorizontal: 10,
+                                }}>{i.biaya}</Text>
 
-
-                                    backgroundColor: colors.success
-                                }}>{i.status} </Text>
-                            </View>}
-                            {i.status != 'Hadir' && <Text style={{
-                                flex: 0.3,
-                                textAlign: 'center',
-                                fontFamily: fonts.secondary[600],
-                                fontSize: windowWidth / 30,
-
-                                backgroundColor: colors.white
-                            }}></Text>}
-
+                            </View>
                         </View>
-                    )
-                })}
-            </ScrollView>
+
+                        <View style={{
+                            flexDirection: 'row'
+                        }}>
+                            <View style={{
+                                flex: 1,
+                                marginRight: 2,
+                            }}>
+                                <Text style={{
+                                    fontFamily: fonts.secondary[600],
+                                    fontSize: windowWidth / 38,
+                                    color: colors.black,
+                                    backgroundColor: colors.primary,
+                                    paddingVertical: 10,
+                                    textAlign: 'center'
+                                }}>SUAMI</Text>
+                                <Text style={{
+                                    fontFamily: fonts.secondary[600],
+                                    fontSize: windowWidth / 38,
+                                    color: colors.black,
+                                }}>Nama</Text>
+                                <Text style={{
+                                    fontFamily: fonts.secondary[400],
+                                    fontSize: windowWidth / 38,
+                                    color: colors.black,
+                                }}>{i.suami_nama}</Text>
+                                <Text style={{
+                                    fontFamily: fonts.secondary[600],
+                                    fontSize: windowWidth / 38,
+                                    color: colors.black,
+                                }}>TTL</Text>
+                                <Text style={{
+                                    fontFamily: fonts.secondary[400],
+                                    fontSize: windowWidth / 38,
+                                    color: colors.black,
+                                }}>{i.suami_tempat_lahir}, {i.suami_tanggal_lahir}</Text>
+                                <Text style={{
+                                    fontFamily: fonts.secondary[600],
+                                    fontSize: windowWidth / 38,
+                                    color: colors.black,
+                                }}>Pekerjaan</Text>
+                                <Text style={{
+                                    fontFamily: fonts.secondary[400],
+                                    fontSize: windowWidth / 38,
+                                    color: colors.black,
+                                }}>{i.suami_pekerjaan}</Text>
+                                <Text style={{
+                                    fontFamily: fonts.secondary[600],
+                                    fontSize: windowWidth / 38,
+                                    color: colors.black,
+                                }}>Telepon</Text>
+                                <Text style={{
+                                    fontFamily: fonts.secondary[400],
+                                    fontSize: windowWidth / 38,
+                                    color: colors.black,
+                                }}>{i.suami_telepon}</Text>
+                                <Text style={{
+                                    fontFamily: fonts.secondary[600],
+                                    fontSize: windowWidth / 38,
+                                    color: colors.black,
+                                }}>Alamat</Text>
+                                <Text style={{
+                                    fontFamily: fonts.secondary[400],
+                                    fontSize: windowWidth / 38,
+                                    color: colors.black,
+                                }}>{i.suami_alamat}</Text>
+                            </View>
+
+                            <View style={{
+                                flex: 1,
+                                marginLeft: 2,
+                            }}>
+                                <Text style={{
+                                    fontFamily: fonts.secondary[600],
+                                    fontSize: windowWidth / 38,
+                                    color: colors.black,
+                                    backgroundColor: colors.primary,
+                                    paddingVertical: 10,
+                                    textAlign: 'center'
+                                }}>ISTRI</Text>
+                                <Text style={{
+                                    fontFamily: fonts.secondary[600],
+                                    fontSize: windowWidth / 38,
+                                    color: colors.black,
+                                }}>Nama</Text>
+                                <Text style={{
+                                    fontFamily: fonts.secondary[400],
+                                    fontSize: windowWidth / 38,
+                                    color: colors.black,
+                                }}>{i.istri_nama}</Text>
+                                <Text style={{
+                                    fontFamily: fonts.secondary[600],
+                                    fontSize: windowWidth / 38,
+                                    color: colors.black,
+                                }}>TTL</Text>
+                                <Text style={{
+                                    fontFamily: fonts.secondary[400],
+                                    fontSize: windowWidth / 38,
+                                    color: colors.black,
+                                }}>{i.istri_tempat_lahir}, {i.istri_tanggal_lahir}</Text>
+                                <Text style={{
+                                    fontFamily: fonts.secondary[600],
+                                    fontSize: windowWidth / 38,
+                                    color: colors.black,
+                                }}>Pekerjaan</Text>
+                                <Text style={{
+                                    fontFamily: fonts.secondary[400],
+                                    fontSize: windowWidth / 38,
+                                    color: colors.black,
+                                }}>{i.istri_pekerjaan}</Text>
+                                <Text style={{
+                                    fontFamily: fonts.secondary[600],
+                                    fontSize: windowWidth / 38,
+                                    color: colors.black,
+                                }}>Telepon</Text>
+                                <Text style={{
+                                    fontFamily: fonts.secondary[400],
+                                    fontSize: windowWidth / 38,
+                                    color: colors.black,
+                                }}>{i.istri_telepon}</Text>
+                                <Text style={{
+                                    fontFamily: fonts.secondary[600],
+                                    fontSize: windowWidth / 38,
+                                    color: colors.black,
+                                }}>Alamat</Text>
+                                <Text style={{
+                                    fontFamily: fonts.secondary[400],
+                                    fontSize: windowWidth / 38,
+                                    color: colors.black,
+                                }}>{i.istri_alamat}</Text>
+
+                            </View>
+                        </View>
 
 
-            <View style={{
-                flexDirection: 'row',
-                justifyContent: 'space-around',
-                borderTopWidth: 2,
-                borderTopColor: colors.primary,
-                paddingVertical: 20,
-            }}>
-
-                <TouchableOpacity onPress={() => navigation.navigate('SAdd', {
-                    fid_acara: route.params.id_acara
-                })} style={{
-                    padding: 10,
-                    width: '100%',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    margin: 5,
-                    borderRadius: 20,
-                    backgroundColor: colors.primary,
-                }}>
-                    <Icon type='ionicon' name='create-outline' color={colors.white} size={windowWidth / 8} />
-                    <Text style={{
-                        fontFamily: fonts.secondary[600],
-                        fontSize: windowWidth / 25,
-                        color: colors.white,
-                        textAlign: 'center'
-                    }}>INPUT HADIR</Text>
-                </TouchableOpacity>
-
-
-                <TouchableOpacity onPress={() => {
-
-
-
-
-                }} style={{
-                    padding: 10,
-                    width: '100%',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    margin: 5,
-                    borderRadius: 20,
-                    backgroundColor: colors.primary,
-                }}>
-                    <Icon type='ionicon' name='qr-code-outline' color={colors.white} size={windowWidth / 8} />
-                    <Text style={{
-                        fontFamily: fonts.secondary[600],
-                        fontSize: windowWidth / 25,
-                        color: colors.white,
-                        textAlign: 'center'
-                    }}>SCAN HADIR</Text>
-                </TouchableOpacity>
-
-
-            </View>
-
-
-
-
-
-
-
+                    </View>
+                )
+            })}
 
 
         </SafeAreaView>

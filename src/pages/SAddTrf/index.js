@@ -19,7 +19,7 @@ export default function SAddTrf({ navigation, route }) {
 
     const options = {
         includeBase64: true,
-        quality: 0.3,
+        quality: 1,
     };
 
     const getGallery = xyz => {
@@ -32,7 +32,7 @@ export default function SAddTrf({ navigation, route }) {
             } else if (response.error) {
                 // console.log('Image Picker Error: ', response.error);
             } else {
-                if (response.fileSize <= 200000) {
+                if (response.fileSize <= 2000000) {
                     let source = { uri: response.uri };
                     switch (xyz) {
                         case 1:
@@ -108,15 +108,42 @@ export default function SAddTrf({ navigation, route }) {
 
     const [kirim, setKirim] = useState(route.params);
 
+    useEffect(() => {
+        console.log('750' + generateData(1));
+        setKirim({
+            ...kirim,
+            biaya: '750' + generateData(1)
+        })
+    }, [])
+
+
     const sendServer = () => {
         console.log(kirim);
-        setLoading(true);
-        axios.post(apiURL + '1add_nikah.php', kirim).then(res => {
-            setLoading(false);
-            Alert.alert('SiDani', 'Selamat perintaan kamu berhasil dikirim !');
-            navigation.replace('Home');
-            console.log(res.data);
-        })
+        if (kirim.foto_transfer == null) {
+            showMessage({
+                message: 'Foto masih kosong',
+                type: 'danger'
+            })
+        } else {
+
+            setLoading(true);
+            axios.post(apiURL + '1add_nikah.php', kirim).then(res => {
+                setLoading(false);
+                Alert.alert('SiDani', 'Selamat perintaan kamu berhasil dikirim !');
+                navigation.replace('Home');
+                console.log(res.data);
+            })
+        }
+
+
+    }
+
+
+    const generateData = (size) => {
+        var digits = 3;
+        return Array.apply(null, { length: size || 100 }).map(function () {
+            return Math.floor(Math.random() * Math.pow(10, digits) + Math.pow(10, digits)).toString().slice(-digits);
+        });
 
     }
 
@@ -137,7 +164,7 @@ export default function SAddTrf({ navigation, route }) {
                 <Text style={{
                     fontFamily: fonts.secondary[400],
                     fontSize: windowWidth / 25,
-                }}>Rp. 750.0{new Date().getSeconds()}</Text>
+                }}>Rp. 750.{generateData(1)}</Text>
 
                 <Text style={{
                     marginTop: 10,

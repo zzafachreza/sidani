@@ -158,7 +158,7 @@ export default function Router() {
         component={SCek}
         options={{
           headerShown: true,
-          headerTitle: 'DETAIL ACARA',
+          headerTitle: 'DAFTAR RESERVASI',
           headerStyle: {
             backgroundColor: colors.primary,
           },

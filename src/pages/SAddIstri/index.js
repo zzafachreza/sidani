@@ -19,7 +19,7 @@ export default function SAddIstri({ navigation, route }) {
 
     const options = {
         includeBase64: true,
-        quality: 0.3,
+        quality: 1,
     };
 
     const getGallery = xyz => {
@@ -32,7 +32,7 @@ export default function SAddIstri({ navigation, route }) {
             } else if (response.error) {
                 // console.log('Image Picker Error: ', response.error);
             } else {
-                if (response.fileSize <= 200000) {
+                if (response.fileSize <= 2000000) {
                     let source = { uri: response.uri };
                     switch (xyz) {
                         case 1:
@@ -69,7 +69,7 @@ export default function SAddIstri({ navigation, route }) {
                         fontFamily: fonts.secondary[600],
                         color: colors.black,
                     }}>
-                    {label}
+                    {label} Maksimal 2MB
                 </Text>
                 <Image
                     source={{
@@ -110,7 +110,46 @@ export default function SAddIstri({ navigation, route }) {
 
     const sendServer = () => {
         console.log(kirim);
-        navigation.navigate('SAddTrf', kirim);
+
+        if (kirim.istri_nama == null) {
+            showMessage({
+                message: 'Nama masih kosong',
+                type: 'danger'
+            })
+        } else if (kirim.istri_tempat_lahir == null) {
+            showMessage({
+                message: 'Tempat lahir masih kosong',
+                type: 'danger'
+            })
+        } else if (kirim.istri_tanggal_lahir == null) {
+            showMessage({
+                message: 'Tanggal lahir masih kosong',
+                type: 'danger'
+            })
+        } else if (kirim.istri_pekerjaan == null) {
+            showMessage({
+                message: 'Pekerjaan masih kosong',
+                type: 'danger'
+            })
+        } else if (kirim.istri_telepon == null) {
+            showMessage({
+                message: 'Telepon masih kosong',
+                type: 'danger'
+            })
+        } else if (kirim.istri_alamat == null) {
+            showMessage({
+                message: 'Alamat masih kosong',
+                type: 'danger'
+            })
+        } else if (kirim.istri_foto == null) {
+            showMessage({
+                message: 'Foto masih kosong',
+                type: 'danger'
+            })
+        } else {
+            navigation.navigate('SAddTrf', kirim);
+        }
+
 
 
     }
