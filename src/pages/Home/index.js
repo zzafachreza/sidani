@@ -30,9 +30,8 @@ export default function Home({ navigation }) {
 
   const __getSlider = async () => {
 
-    axios.post(apiURL + '1slider.php').then(res => {
-      console.log(res.data);
-      setSlider(res.data);
+    axios.post(apiURL + '1slider.php').then(zz => {
+      setSlider(zz.data);
     })
 
   }
@@ -41,52 +40,9 @@ export default function Home({ navigation }) {
     getData('user').then(res => {
       setUser(res);
       axios.post(apiURL + '1data_acara.php').then(x => {
-        console.log(x.data);
+        // console.log(x.data);
         setData(x.data);
       })
-    })
-  }
-
-  const __renderItem = ({ item }) => {
-    return (
-      <TouchableOpacity onPress={() => navigation.navigate('SCek', item)} style={{
-        margin: 5,
-        padding: 10,
-        flexDirection: 'row',
-        borderBottomWidth: 1,
-        borderBottomColor: colors.zavalabs
-      }}>
-
-        <View style={{
-          flex: 1,
-        }}>
-          <Text style={{
-            fontFamily: fonts.secondary[600],
-            fontSize: windowWidth / 30,
-            color: colors.primary,
-          }}>{item.acara}</Text>
-          <Text style={{
-            fontFamily: fonts.secondary[400],
-            fontSize: windowWidth / 28,
-            color: colors.black,
-          }}>{item.tanggal}</Text>
-        </View>
-
-        <View style={{
-          justifyContent: 'center',
-          alignItems: 'center'
-        }}>
-          <Icon type='ionicon' name='search' size={windowWidth / 25} color={colors.primary} />
-        </View>
-      </TouchableOpacity>
-    )
-  }
-
-
-  const filterItems = (key, data) => {
-    var query = key.toLowerCase();
-    return data.filter(function (item) {
-      return item.toLowerCase().indexOf(query) >= 0;
     })
   }
 
@@ -252,7 +208,7 @@ export default function Home({ navigation }) {
           {
             text: 'Keluar',
             onPress: () => {
-              storeData(null);
+              storeData('user', null);
               navigation.replace('Login')
             }
           }
