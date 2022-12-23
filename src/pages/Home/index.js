@@ -7,12 +7,13 @@ import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { showMessage } from 'react-native-flash-message';
 import Sound from 'react-native-sound';
 import { Icon } from 'react-native-elements/dist/icons/Icon';
-import { MyButton, MyInput } from '../../components';
+import { MyButton, MyGap, MyInput } from '../../components';
 import { useIsFocused } from '@react-navigation/native';
 import axios from 'axios';
 import { FloatingAction } from "react-native-floating-action";
 import 'intl';
 import 'intl/locale-data/jsonp/en';
+import MyCarouser from '../../components/MyCarouser';
 
 export default function Home({ navigation }) {
 
@@ -101,18 +102,21 @@ export default function Home({ navigation }) {
 
       </View>
 
-      <Image source={{
+      {/* <Image source={{
         uri: 'https://sidani.zavalabs.com/' + slider.foto
       }} style={{
         width: windowWidth,
         height: 200,
-      }} />
+      }} /> */}
+
 
 
       <ImageBackground source={require('../../assets/bck.png')} style={{
         flex: 1,
-        paddingTop: 20,
+        paddingTop: 10,
       }}>
+
+        <MyCarouser />
         <View style={{
           flexDirection: 'row',
           justifyContent: 'space-around'
