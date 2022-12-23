@@ -287,7 +287,7 @@ export default function Router() {
         name="TimSetDetail"
         component={TimSetDetail}
         options={({ route }) => ({
-          title: route.params.name,
+          headerShown: false,
           headerStyle: {
             backgroundColor: colors.secondary,
           },

@@ -16,298 +16,381 @@ import 'intl/locale-data/jsonp/en';
 import ViewShot from "react-native-view-shot";
 import Share from 'react-native-share';
 import Orientation from 'react-native-orientation-locker';
-export default function TimSetDetail({ navigation, route }) {
-    const [data, setData] = useState([]);
+import { ImageBackground } from 'react-native';
 
-    navigation.setOptions({
-        title: 'SET ' + route.params.set
-    })
+export default function TimSetDetail({ navigation, route }) {
+    const i = route.params;
+    const ref = useRef();
 
     const isFocused = useIsFocused();
+    const [link, setLink] = useState('');
+
     useEffect(() => {
-        if (isFocused) {
-            __getTransaction(route.params.id);
-            Orientation.lockToPortrait();
-        }
+        ref.current.capture().then(uri => {
+            console.log("do something with ", uri);
+            setLink(uri);
+        });
+    }, [])
 
-    }, [isFocused]);
-
-
-    const __getTransaction = (x) => {
-        axios.post(apiURL + 'tim_data_pemain.php', {
-            fid_tim: x
-        }).then(rz => {
-            setData(rz.data);
-            console.log(rz.data)
-        })
-    }
-
-
-
-    const [pilih, setPilih] = useState(0);
-
-
-
-
-
-    const __renderItem = ({ item }) => {
-        return (
-            <TouchableOpacity onPress={() => {
-                console.log(item.id);
-                setPilih(item.id)
-            }} style={{
-                padding: 10,
-                marginVertical: 2,
-                flex: 1,
-                backgroundColor: item.id == pilih ? colors.secondary : colors.white,
-                flexDirection: 'row',
-                // borderWidth: 2,
-            }}>
-                <View style={{
-                    flex: 1,
-                    flexDirection: 'row'
-                }}>
-                    <Text style={{
-                        fontFamily: fonts.secondary[600],
-                        fontSize: windowWidth / 25,
-                        color: colors.primary,
-                    }}>{item.posisi}. </Text>
-
-                    <Text style={{
-                        // flex: 1,
-                        width: windowWidth / 2,
-                        fontFamily: fonts.secondary[600],
-                        fontSize: windowWidth / 25,
-                        color: colors.primary,
-                    }}>{item.nama_pemain}
-                    </Text>
-                    <Text style={{
-                        left: 5,
-                        width: 50,
-                        textAlign: 'center',
-                        fontFamily: fonts.secondary[600],
-                        fontSize: windowWidth / 25,
-                        backgroundColor: colors.black,
-                        color: colors.white,
-                    }}>{item.nomor} </Text>
-
-                </View>
-
-
-                <Icon size={windowWidth / 15} type='ionicon' name={item.id == pilih ? 'checkmark-circle' : 'checkmark-circle-outline'} />
-
-
-
-            </TouchableOpacity>
-        )
-    }
 
 
     return (
-        <SafeAreaView style={{
-            flex: 1,
-            backgroundColor: colors.primary,
-            padding: 10,
-        }}>
+        <>
+            <ViewShot style={{
+                flex: 1,
+            }} ref={ref} options={{ fileName: i.kode, format: "png", quality: 1 }}>
+                <ImageBackground source={require('../../assets/bck.png')} style={{
+                    flex: 1,
+                    opacity: 1,
+                    backgroundColor: colors.white,
+                    padding: 10,
+                }}>
+                    <View style={{
+                        flex: 1,
+                    }}>
+                        {/* header */}
+                        <View style={{
+                        }}>
+                            <View style={{
+                                flexDirection: 'row',
+                                paddingVertical: 5,
+                            }}>
+                                <Text style={{
+                                    flex: 0.5,
+                                    fontFamily: fonts.primary[600],
+                                    fontSize: windowWidth / 30
+                                }}>Lokasi</Text>
+                                <Text style={{
+                                    flex: 0.1,
+                                    fontFamily: fonts.primary[600],
+                                    fontSize: windowWidth / 30
+                                }}>:</Text>
+                                <Text style={{
+                                    flex: 1.5,
+                                    fontFamily: fonts.primary[400],
+                                    fontSize: windowWidth / 30
+                                }}>{i.lokasi}</Text>
+                            </View>
+                            <View style={{
+                                flexDirection: 'row',
+                                paddingVertical: 5,
+                            }}>
+                                <Text style={{
+                                    flex: 0.5,
+                                    fontFamily: fonts.primary[600],
+                                    fontSize: windowWidth / 30
+                                }}>Tanggal</Text>
+                                <Text style={{
+                                    flex: 0.1,
+                                    fontFamily: fonts.primary[600],
+                                    fontSize: windowWidth / 30
+                                }}>:</Text>
+                                <Text style={{
+                                    flex: 1.5,
+                                    fontFamily: fonts.primary[400],
+                                    fontSize: windowWidth / 30
+                                }}>{i.tanggal} Pukul {i.waktu}</Text>
+                            </View>
+                            <View style={{
+                                flexDirection: 'row',
+                                paddingVertical: 5,
+                            }}>
+                                <Text style={{
+                                    flex: 0.5,
+                                    fontFamily: fonts.primary[600],
+                                    fontSize: windowWidth / 30
+                                }}>Oleh</Text>
+                                <Text style={{
+                                    flex: 0.1,
+                                    fontFamily: fonts.primary[600],
+                                    fontSize: windowWidth / 30
+                                }}>:</Text>
+                                <Text style={{
+                                    flex: 1.5,
+                                    fontFamily: fonts.primary[400],
+                                    fontSize: windowWidth / 30
+                                }}>{i.oleh}</Text>
+                            </View>
+                        </View>
+
+                        <Text style={{
+                            padding: 10,
+                            backgroundColor: colors.primary,
+                            color: colors.black,
+                            fontFamily: fonts.secondary[600]
+                        }}>Calon Suami</Text>
+                        <View style={{
+                            flexDirection: 'row',
+                            padding: 10,
+                        }}>
+                            <View>
+                                <Image source={{
+                                    uri: i.suami_foto
+                                }} style={{
+                                    height: 150,
+                                    width: 100,
+                                }} />
+                            </View>
+                            <View style={{
+                                flex: 1,
+                            }}>
+                                <View style={{
+                                    flexDirection: 'row',
+                                    paddingVertical: 5,
+                                    paddingHorizontal: 10,
+                                }}>
+                                    <Text style={{
+                                        flex: 0.5,
+                                        fontFamily: fonts.primary[600],
+                                        fontSize: windowWidth / 30
+                                    }}>Nama</Text>
+                                    <Text style={{
+                                        flex: 0.1,
+                                        fontFamily: fonts.primary[600],
+                                        fontSize: windowWidth / 30
+                                    }}>:</Text>
+                                    <Text style={{
+                                        flex: 1.5,
+                                        fontFamily: fonts.primary[400],
+                                        fontSize: windowWidth / 30
+                                    }}>{i.suami_nama}</Text>
+                                </View>
+                                <View style={{
+                                    flexDirection: 'row',
+                                    paddingVertical: 5,
+                                    paddingHorizontal: 10,
+                                }}>
+                                    <Text style={{
+                                        flex: 0.5,
+                                        fontFamily: fonts.primary[600],
+                                        fontSize: windowWidth / 30
+                                    }}>TTL</Text>
+                                    <Text style={{
+                                        flex: 0.1,
+                                        fontFamily: fonts.primary[600],
+                                        fontSize: windowWidth / 30
+                                    }}>:</Text>
+                                    <Text style={{
+                                        flex: 1.5,
+                                        fontFamily: fonts.primary[400],
+                                        fontSize: windowWidth / 30
+                                    }}>{i.suami_tempat_lahir}, {i.suami_tanggal_lahir}</Text>
+                                </View>
+                                <View style={{
+                                    flexDirection: 'row',
+                                    paddingVertical: 5,
+                                    paddingHorizontal: 10,
+                                }}>
+                                    <Text style={{
+                                        flex: 0.5,
+                                        fontFamily: fonts.primary[600],
+                                        fontSize: windowWidth / 30
+                                    }}>Telepon</Text>
+                                    <Text style={{
+                                        flex: 0.1,
+                                        fontFamily: fonts.primary[600],
+                                        fontSize: windowWidth / 30
+                                    }}>:</Text>
+                                    <Text style={{
+                                        flex: 1.5,
+                                        fontFamily: fonts.primary[400],
+                                        fontSize: windowWidth / 30
+                                    }}>{i.suami_telepon}</Text>
+                                </View>
+                                <View style={{
+                                    flexDirection: 'row',
+                                    paddingVertical: 5,
+                                    paddingHorizontal: 10,
+                                }}>
+                                    <Text style={{
+                                        flex: 0.5,
+                                        fontFamily: fonts.primary[600],
+                                        fontSize: windowWidth / 30
+                                    }}>Pekerjaan</Text>
+                                    <Text style={{
+                                        flex: 0.1,
+                                        fontFamily: fonts.primary[600],
+                                        fontSize: windowWidth / 30
+                                    }}>:</Text>
+                                    <Text style={{
+                                        flex: 1.5,
+                                        fontFamily: fonts.primary[400],
+                                        fontSize: windowWidth / 30
+                                    }}>{i.suami_pekerjaan}</Text>
+                                </View>
+                                <View style={{
+                                    flexDirection: 'row',
+                                    paddingVertical: 5,
+                                    paddingHorizontal: 10,
+                                }}>
+                                    <Text style={{
+                                        flex: 0.5,
+                                        fontFamily: fonts.primary[600],
+                                        fontSize: windowWidth / 30
+                                    }}>Alamat</Text>
+                                    <Text style={{
+                                        flex: 0.1,
+                                        fontFamily: fonts.primary[600],
+                                        fontSize: windowWidth / 30
+                                    }}>:</Text>
+                                    <Text style={{
+                                        flex: 1.5,
+                                        fontFamily: fonts.primary[400],
+                                        fontSize: windowWidth / 30
+                                    }}>{i.suami_alamat}</Text>
+                                </View>
+                            </View>
+                        </View>
 
 
+                        <Text style={{
+                            padding: 10,
+                            backgroundColor: colors.primary,
+                            color: colors.black,
+                            fontFamily: fonts.secondary[600]
+                        }}>Calon Istri</Text>
+                        <View style={{
+                            flexDirection: 'row',
+                            padding: 10,
+                        }}>
+                            <View>
+                                <Image source={{
+                                    uri: i.istri_foto
+                                }} style={{
+                                    height: 150,
+                                    width: 100,
+                                }} />
+                            </View>
+                            <View style={{
+                                flex: 1,
+                            }}>
+                                <View style={{
+                                    flexDirection: 'row',
+                                    paddingVertical: 5,
+                                    paddingHorizontal: 10,
+                                }}>
+                                    <Text style={{
+                                        flex: 0.5,
+                                        fontFamily: fonts.primary[600],
+                                        fontSize: windowWidth / 30
+                                    }}>Nama</Text>
+                                    <Text style={{
+                                        flex: 0.1,
+                                        fontFamily: fonts.primary[600],
+                                        fontSize: windowWidth / 30
+                                    }}>:</Text>
+                                    <Text style={{
+                                        flex: 1.5,
+                                        fontFamily: fonts.primary[400],
+                                        fontSize: windowWidth / 30
+                                    }}>{i.istri_nama}</Text>
+                                </View>
+                                <View style={{
+                                    flexDirection: 'row',
+                                    paddingVertical: 5,
+                                    paddingHorizontal: 10,
+                                }}>
+                                    <Text style={{
+                                        flex: 0.5,
+                                        fontFamily: fonts.primary[600],
+                                        fontSize: windowWidth / 30
+                                    }}>TTL</Text>
+                                    <Text style={{
+                                        flex: 0.1,
+                                        fontFamily: fonts.primary[600],
+                                        fontSize: windowWidth / 30
+                                    }}>:</Text>
+                                    <Text style={{
+                                        flex: 1.5,
+                                        fontFamily: fonts.primary[400],
+                                        fontSize: windowWidth / 30
+                                    }}>{i.istri_tempat_lahir}, {i.istri_tanggal_lahir}</Text>
+                                </View>
+                                <View style={{
+                                    flexDirection: 'row',
+                                    paddingVertical: 5,
+                                    paddingHorizontal: 10,
+                                }}>
+                                    <Text style={{
+                                        flex: 0.5,
+                                        fontFamily: fonts.primary[600],
+                                        fontSize: windowWidth / 30
+                                    }}>Telepon</Text>
+                                    <Text style={{
+                                        flex: 0.1,
+                                        fontFamily: fonts.primary[600],
+                                        fontSize: windowWidth / 30
+                                    }}>:</Text>
+                                    <Text style={{
+                                        flex: 1.5,
+                                        fontFamily: fonts.primary[400],
+                                        fontSize: windowWidth / 30
+                                    }}>{i.istri_telepon}</Text>
+                                </View>
+                                <View style={{
+                                    flexDirection: 'row',
+                                    paddingVertical: 5,
+                                    paddingHorizontal: 10,
+                                }}>
+                                    <Text style={{
+                                        flex: 0.5,
+                                        fontFamily: fonts.primary[600],
+                                        fontSize: windowWidth / 30
+                                    }}>Pekerjaan</Text>
+                                    <Text style={{
+                                        flex: 0.1,
+                                        fontFamily: fonts.primary[600],
+                                        fontSize: windowWidth / 30
+                                    }}>:</Text>
+                                    <Text style={{
+                                        flex: 1.5,
+                                        fontFamily: fonts.primary[400],
+                                        fontSize: windowWidth / 30
+                                    }}>{i.istri_pekerjaan}</Text>
+                                </View>
+                                <View style={{
+                                    flexDirection: 'row',
+                                    paddingVertical: 5,
+                                    paddingHorizontal: 10,
+                                }}>
+                                    <Text style={{
+                                        flex: 0.5,
+                                        fontFamily: fonts.primary[600],
+                                        fontSize: windowWidth / 30
+                                    }}>Alamat</Text>
+                                    <Text style={{
+                                        flex: 0.1,
+                                        fontFamily: fonts.primary[600],
+                                        fontSize: windowWidth / 30
+                                    }}>:</Text>
+                                    <Text style={{
+                                        flex: 1.5,
+                                        fontFamily: fonts.primary[400],
+                                        fontSize: windowWidth / 30
+                                    }}>{i.istri_alamat}</Text>
+                                </View>
+                            </View>
+                        </View>
+                    </View>
 
+
+                </ImageBackground>
+            </ViewShot>
             <View style={{
-                flex: 0.2,
-                justifyContent: 'center',
-                alignItems: 'center',
+                padding: 10,
             }}>
-                <Text style={{
-                    textAlign: 'center',
-                    fontFamily: fonts.secondary[600],
-                    color: colors.white,
-                    fontSize: windowWidth / 20,
-                }}>Posisi</Text>
+                <MyButton title="Share" warna={colors.black} onPress={() => {
+                    Share.open({
+                        url: link,
+                        title: 'E -Tiket Aplikasi SiDani',
+                        message: 'E -Tiket Aplikasi SiDani',
+
+                    }).then(s => {
+                        console.log(s)
+                    })
+                }} />
             </View>
-            <View style={{
-                flex: 0.3,
-                flexDirection: 'row',
-                justifyContent: 'space-around'
-            }}>
-
-                <TouchableOpacity onPress={() => {
-                    axios.post(apiURL + 'tim_update.php', {
-                        fid_tim: route.params.id,
-                        id_pemain: pilih,
-                        posisi: 4
-                    }).then(res => {
-
-                        __getTransaction(route.params.id)
-                    })
-                }} style={{
-                    width: windowWidth / 4.5,
-                    backgroundColor: colors.secondary,
-                    height: windowWidth / 4.5,
-                    borderRadius: (windowWidth / 4.5) / 2,
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }}>
-                    <Text style={{
-                        textAlign: 'center',
-                        fontFamily: fonts.secondary[600],
-                        color: colors.primary,
-                        fontSize: windowWidth / 10
-                    }}>4</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity onPress={() => {
-                    axios.post(apiURL + 'tim_update.php', {
-                        fid_tim: route.params.id,
-                        id_pemain: pilih,
-                        posisi: 3
-                    }).then(res => {
-
-                        __getTransaction(route.params.id)
-                    })
-                }} style={{
-                    width: windowWidth / 4.5,
-                    backgroundColor: colors.secondary,
-                    height: windowWidth / 4.5,
-                    borderRadius: (windowWidth / 4.5) / 2,
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }}>
-                    <Text style={{
-                        textAlign: 'center',
-                        fontFamily: fonts.secondary[600],
-                        color: colors.primary,
-                        fontSize: windowWidth / 10
-                    }}>3</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity onPress={() => {
-                    axios.post(apiURL + 'tim_update.php', {
-                        fid_tim: route.params.id,
-                        id_pemain: pilih,
-                        posisi: 2
-                    }).then(res => {
-
-                        __getTransaction(route.params.id)
-                    })
-                }} style={{
-                    width: windowWidth / 4.5,
-                    backgroundColor: colors.secondary,
-                    height: windowWidth / 4.5,
-                    borderRadius: (windowWidth / 4.5) / 2,
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }}>
-                    <Text style={{
-                        textAlign: 'center',
-                        fontFamily: fonts.secondary[600],
-                        color: colors.primary,
-                        fontSize: windowWidth / 10
-                    }}>2</Text>
-                </TouchableOpacity>
-
-            </View>
-            <View style={{
-                flex: 0.3,
-                flexDirection: 'row',
-                justifyContent: 'space-around'
-            }}>
-
-                <TouchableOpacity onPress={() => {
-                    axios.post(apiURL + 'tim_update.php', {
-                        fid_tim: route.params.id,
-                        id_pemain: pilih,
-                        posisi: 5
-                    }).then(res => {
-
-                        __getTransaction(route.params.id)
-                    })
-                }} style={{
-                    width: windowWidth / 4.5,
-                    backgroundColor: colors.secondary,
-                    height: windowWidth / 4.5,
-                    borderRadius: (windowWidth / 4.5) / 2,
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }}>
-                    <Text style={{
-                        textAlign: 'center',
-                        fontFamily: fonts.secondary[600],
-                        color: colors.primary,
-                        fontSize: windowWidth / 10
-                    }}>5</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity onPress={() => {
-                    axios.post(apiURL + 'tim_update.php', {
-                        fid_tim: route.params.id,
-                        id_pemain: pilih,
-                        posisi: 6
-                    }).then(res => {
-
-                        __getTransaction(route.params.id)
-                    })
-                }} style={{
-                    width: windowWidth / 4.5,
-                    backgroundColor: colors.secondary,
-                    height: windowWidth / 4.5,
-                    borderRadius: (windowWidth / 4.5) / 2,
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }}>
-                    <Text style={{
-                        textAlign: 'center',
-                        fontFamily: fonts.secondary[600],
-                        color: colors.primary,
-                        fontSize: windowWidth / 10
-                    }}>6</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity onPress={() => {
-                    axios.post(apiURL + 'tim_update.php', {
-                        fid_tim: route.params.id,
-                        id_pemain: pilih,
-                        posisi: 1
-                    }).then(res => {
-
-                        __getTransaction(route.params.id)
-                    })
-                }} style={{
-                    width: windowWidth / 4.5,
-                    backgroundColor: colors.secondary,
-                    height: windowWidth / 4.5,
-                    borderRadius: (windowWidth / 4.5) / 2,
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }}>
-                    <Text style={{
-                        textAlign: 'center',
-                        fontFamily: fonts.secondary[600],
-                        color: colors.primary,
-                        fontSize: windowWidth / 10
-                    }}>1</Text>
-                </TouchableOpacity>
-
-            </View>
-            <View style={{
-                flex: 1
-            }}>
-                <Text style={{
-                    textAlign: 'center',
-                    fontFamily: fonts.secondary[600],
-                    color: colors.white,
-                    marginBottom: 10,
-                    fontSize: windowWidth / 20
-                }}>Pemain</Text>
-                <FlatList data={data} renderItem={__renderItem} />
-            </View>
-
-            <MyButton onPress={() => navigation.navigate('TimMulai', {
-                id: route.params.id,
-                set: route.params.set
-            })} title="Mulai" />
-
-
-        </SafeAreaView>
+        </>
     )
 }
 
