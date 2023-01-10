@@ -109,10 +109,10 @@ export default function SAddTrf({ navigation, route }) {
     const [kirim, setKirim] = useState(route.params);
 
     useEffect(() => {
-        console.log('750' + generateData(1));
+        console.log('700' + generateData(1));
         setKirim({
             ...kirim,
-            biaya: '750' + generateData(1)
+            biaya: '700' + generateData(1)
         })
     }, [])
 
@@ -164,7 +164,7 @@ export default function SAddTrf({ navigation, route }) {
                 <Text style={{
                     fontFamily: fonts.secondary[400],
                     fontSize: windowWidth / 25,
-                }}>Rp. 750.{generateData(1)}</Text>
+                }}>Rp. 700.{generateData(1)}</Text>
 
                 <Text style={{
                     marginTop: 10,

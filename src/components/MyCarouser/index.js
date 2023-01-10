@@ -37,9 +37,9 @@ export default function MyCarouser() {
       source={{ uri: item.image }}
       style={{
         resizeMode: 'cover',
-        height: 180,
-        width: 300,
-        borderRadius: 10,
+        height: 200,
+        width: windowWidth,
+        borderRadius: 0,
       }}
     />
   );
@@ -54,7 +54,7 @@ export default function MyCarouser() {
         containerCustomStyle={styles.carousel}
         renderItem={renderCarouselItem}
         sliderWidth={Dimensions.get('window').width}
-        itemWidth={300}
+        itemWidth={windowWidth}
         removeClippedSubviews={false}
       />
     </View>

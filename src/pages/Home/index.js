@@ -113,7 +113,7 @@ export default function Home({ navigation }) {
 
       <ImageBackground source={require('../../assets/bck.png')} style={{
         flex: 1,
-        paddingTop: 10,
+        paddingTop: 0,
       }}>
 
         <MyCarouser />
