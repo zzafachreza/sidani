@@ -21,6 +21,8 @@ import TimHasil from './TimHasil';
 import SAddSuami from './SAddSuami';
 import SAddIstri from './SAddIstri';
 import SAddTrf from './SAddTrf';
+import Sedekah from './Sedekah';
+import KhutbahNikah from './KhutbahNIkah';
 
 
 
@@ -58,6 +60,8 @@ export {
   TimHasil,
   SAddSuami,
   SAddIstri,
-  SAddTrf
+  SAddTrf,
+  Sedekah,
+  KhutbahNikah
 
 };

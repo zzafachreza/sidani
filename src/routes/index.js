@@ -25,6 +25,8 @@ import {
   SAddSuami,
   SAddIstri,
   SAddTrf,
+  Sedekah,
+  KhutbahNikah,
 } from '../pages';
 import { colors } from '../utils';
 
@@ -78,6 +80,35 @@ export default function Router() {
           headerTintColor: '#fff',
         }}
       />
+
+
+      <Stack.Screen
+        name="Sedekah"
+        component={Sedekah}
+        options={{
+          headerShown: true,
+          headerTitle: 'Sedekah',
+          headerStyle: {
+            backgroundColor: colors.primary,
+          },
+          headerTintColor: '#fff',
+        }}
+      />
+
+      <Stack.Screen
+        name="KhutbahNikah"
+        component={KhutbahNikah}
+        options={{
+          headerShown: true,
+          headerTitle: 'Khutbah Nikah',
+          headerStyle: {
+            backgroundColor: colors.primary,
+          },
+          headerTintColor: '#fff',
+        }}
+      />
+
+
 
       <Stack.Screen
         name="SAddIstri"

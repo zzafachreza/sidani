@@ -112,6 +112,7 @@ export default function SAddTrf({ navigation, route }) {
         console.log('700' + generateData(1));
         setKirim({
             ...kirim,
+            pembayaran: 'TRANSFER',
             biaya: '700' + generateData(1)
         })
     }, [])
@@ -119,7 +120,7 @@ export default function SAddTrf({ navigation, route }) {
 
     const sendServer = () => {
         console.log(kirim);
-        if (kirim.foto_transfer == null) {
+        if (kirim.foto_transfer == null && kirim.pembayaran == 'TRANSFER') {
             showMessage({
                 message: 'Foto masih kosong',
                 type: 'danger'
@@ -166,74 +167,93 @@ export default function SAddTrf({ navigation, route }) {
                     fontSize: windowWidth / 25,
                 }}>Rp. 700.{generateData(1)}</Text>
 
-                <Text style={{
-                    marginTop: 10,
-                    fontFamily: fonts.secondary[600],
-                    fontSize: windowWidth / 30,
-                }}>Silahkan melakukan transfer ke :</Text>
-                <View style={{
-                    marginTop: 10,
-                    flexDirection: 'row'
-                }}>
+
+                <MyGap jarak={10} />
+
+                <MyPicker iconname="options" label="Pembayaran" value={kirim.pembayaran} onValueChange={x => {
+                    setKirim({
+                        ...kirim,
+                        pembayaran: x
+                    })
+                }} data={[
+                    { value: 'TRANSFER', label: 'TRANSFER' },
+                    { value: 'CASH', label: 'CASH' },
+
+                ]} />
+
+
+                {kirim.pembayaran == 'TRANSFER' && <>
+
                     <Text style={{
-                        flex: 0.4,
-                        fontFamily: fonts.secondary[400],
-                        fontSize: windowWidth / 25,
-                    }}>Bank</Text>
-                    <Text style={{
-                        flex: 0.1,
-                        fontFamily: fonts.secondary[400],
-                        fontSize: windowWidth / 25,
-                    }}>:</Text>
-                    <Text style={{
-                        flex: 1,
-                        fontFamily: fonts.secondary[400],
-                        fontSize: windowWidth / 25,
-                    }}>Bank Syariah Indonesia</Text>
-                </View>
-                <View style={{
-                    flexDirection: 'row'
-                }}>
-                    <Text style={{
-                        flex: 0.4,
-                        fontFamily: fonts.secondary[400],
-                        fontSize: windowWidth / 25,
-                    }}>Rekening</Text>
-                    <Text style={{
-                        flex: 0.1,
-                        fontFamily: fonts.secondary[400],
-                        fontSize: windowWidth / 25,
-                    }}>:</Text>
-                    <Text style={{
-                        flex: 1,
-                        fontFamily: fonts.secondary[400],
-                        fontSize: windowWidth / 25,
-                    }}>7199478049</Text>
-                </View>
-                <View style={{
-                    flexDirection: 'row'
-                }}>
-                    <Text style={{
-                        flex: 0.4,
-                        fontFamily: fonts.secondary[400],
-                        fontSize: windowWidth / 25,
-                    }}>Atas Nama</Text>
-                    <Text style={{
-                        flex: 0.1,
-                        fontFamily: fonts.secondary[400],
-                        fontSize: windowWidth / 25,
-                    }}>:</Text>
-                    <Text style={{
-                        flex: 1,
-                        fontFamily: fonts.secondary[400],
-                        fontSize: windowWidth / 25,
-                    }}>UPTD Masjid Agung Baitul Makmur</Text>
-                </View>
+                        marginTop: 10,
+                        fontFamily: fonts.secondary[600],
+                        fontSize: windowWidth / 30,
+                    }}>Silahkan melakukan transfer ke :</Text>
+                    <View style={{
+                        marginTop: 10,
+                        flexDirection: 'row'
+                    }}>
+                        <Text style={{
+                            flex: 0.4,
+                            fontFamily: fonts.secondary[400],
+                            fontSize: windowWidth / 25,
+                        }}>Bank</Text>
+                        <Text style={{
+                            flex: 0.1,
+                            fontFamily: fonts.secondary[400],
+                            fontSize: windowWidth / 25,
+                        }}>:</Text>
+                        <Text style={{
+                            flex: 1,
+                            fontFamily: fonts.secondary[400],
+                            fontSize: windowWidth / 25,
+                        }}>Bank Syariah Indonesia</Text>
+                    </View>
+                    <View style={{
+                        flexDirection: 'row'
+                    }}>
+                        <Text style={{
+                            flex: 0.4,
+                            fontFamily: fonts.secondary[400],
+                            fontSize: windowWidth / 25,
+                        }}>Rekening</Text>
+                        <Text style={{
+                            flex: 0.1,
+                            fontFamily: fonts.secondary[400],
+                            fontSize: windowWidth / 25,
+                        }}>:</Text>
+                        <Text style={{
+                            flex: 1,
+                            fontFamily: fonts.secondary[400],
+                            fontSize: windowWidth / 25,
+                        }}>7199478049</Text>
+                    </View>
+                    <View style={{
+                        flexDirection: 'row'
+                    }}>
+                        <Text style={{
+                            flex: 0.4,
+                            fontFamily: fonts.secondary[400],
+                            fontSize: windowWidth / 25,
+                        }}>Atas Nama</Text>
+                        <Text style={{
+                            flex: 0.1,
+                            fontFamily: fonts.secondary[400],
+                            fontSize: windowWidth / 25,
+                        }}>:</Text>
+                        <Text style={{
+                            flex: 1,
+                            fontFamily: fonts.secondary[400],
+                            fontSize: windowWidth / 25,
+                        }}>UPTD Masjid Agung Baitul Makmur</Text>
+                    </View>
 
 
 
-                <MyGap jarak={20} />
-                <UploadFoto onPress2={() => getGallery(1)} label="Upload Bukti Transfer" />
+                    <MyGap jarak={20} />
+                    <UploadFoto onPress2={() => getGallery(1)} label="Upload Bukti Transfer" />
+
+                </>}
                 <MyGap jarak={20} />
                 {!loading && <MyButton onPress={sendServer} title="Simpan" warna={colors.primary} Icons="person-add" />}
 

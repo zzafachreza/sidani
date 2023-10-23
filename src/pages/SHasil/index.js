@@ -1,111 +1,204 @@
-import React, { useState } from 'react';
-import { StyleSheet, Dimensions, View, TouchableOpacity, Text, Image, Alert } from 'react-native';
+import { Alert, StyleSheet, Text, View, Image, FlatList } from 'react-native'
+import React, { useState, useEffect, useRef } from 'react'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { apiURL, getData, storeData } from '../../utils/localStorage';
 import { colors, fonts, windowHeight, windowWidth } from '../../utils';
-import Pdf from 'react-native-pdf';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
+import { showMessage } from 'react-native-flash-message';
+import Sound from 'react-native-sound';
+import { Icon } from 'react-native-elements/dist/icons/Icon';
+import { MyButton, MyGap, MyInput } from '../../components';
+import { useIsFocused } from '@react-navigation/native';
 import axios from 'axios';
-import { apiURL } from '../../utils/localStorage';
+import { FloatingAction } from "react-native-floating-action";
+import 'intl';
+import 'intl/locale-data/jsonp/en';
+import ViewShot from "react-native-view-shot";
+import Share from 'react-native-share';
+import Orientation from 'react-native-orientation-locker';
+import { ImageBackground } from 'react-native';
 
+export default function TimSetDetail({ navigation, route }) {
+    const i = route.params;
+    const ref = useRef();
 
+    const isFocused = useIsFocused();
+    const [link, setLink] = useState('');
 
-export default function SHasil({ navigation, route }) {
-    const item = route.params;
-    console.log(item);
+    useEffect(() => {
+        ref.current.capture().then(uri => {
+            console.log("do something with ", uri);
+            setLink(uri);
+        });
+    }, [])
+
 
 
     return (
-        <View style={styles.container}>
-
-            <View style={{
-                height: 80,
-                backgroundColor: colors.primary,
-                justifyContent: 'center',
-                alignItems: 'center',
-            }}>
-                <Text style={{
-                    fontFamily: fonts.secondary[600],
-                    color: colors.white,
-                    fontSize: 20
-                }}>{item.keterangan}</Text>
-                <Text style={{
-                    fontFamily: fonts.secondary[400],
-                    color: colors.white,
-                    fontSize: 20
-                }}>{item.tanggal}</Text>
-            </View>
-
-            <View style={{
+        <>
+            <ViewShot style={{
                 flex: 1,
+            }} ref={ref} options={{ fileName: i.kode, format: "png", quality: 1 }}>
+                <ImageBackground style={{
+                    flex: 1,
+                    opacity: 1,
+                    backgroundColor: colors.white,
+                }}>
+                    <View style={{
+                        backgroundColor: '#EFF0F4',
+                        padding: 20,
+                    }}>
+                        <View style={{
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}>
+                            <Image source={require('../../assets/logo.png')} style={{
+                                width: 50,
+                                height: 50,
+                                resizeMode: 'contain'
+                            }} />
+                            <View style={{
+                                marginTop: 5,
+                                flexDirection: 'row',
+                                alignItems: 'center'
+                            }}>
+                                <Icon type='ionicon' name='checkmark-circle' color={colors.success} />
+                                <Text style={{
+                                    fontFamily: fonts.secondary[800],
+                                    left: 5,
+                                    fontSize: 20,
+                                    color: colors.success
+                                }}>Berhasil</Text>
+                            </View>
+                            <Text style={{
+                                marginTop: 5,
+                                fontFamily: fonts.secondary[400],
+                                fontSize: 15,
+                                color: colors.black
+                            }}>{i.tanggal} Pukul {i.waktu}</Text>
+                        </View>
+
+                    </View>
+
+                    <View style={{
+                        padding: 20,
+                    }}>
+                        <Text style={{
+                            marginTop: 10,
+                            fontFamily: fonts.secondary[400],
+                            fontSize: 15,
+                            color: '#73777A'
+                        }}>No. Referensi</Text>
+                        <Text style={{
+                            marginTop: 10,
+                            fontFamily: fonts.secondary[400],
+                            fontSize: 15,
+                            color: colors.black
+                        }}>{i.kode}</Text>
+                        <Text style={{
+                            marginTop: 20,
+                            fontFamily: fonts.secondary[400],
+                            fontSize: 15,
+                            color: '#73777A'
+                        }}>Tipe Transaksi</Text>
+                        <Text style={{
+                            marginTop: 10,
+                            fontFamily: fonts.secondary[400],
+                            fontSize: 15,
+                            color: colors.black
+                        }}>Pembayaran</Text>
+                        <Text style={{
+                            marginTop: 20,
+                            fontFamily: fonts.secondary[400],
+                            fontSize: 15,
+                            color: '#73777A'
+                        }}>Jenis Pembayaran</Text>
+                        <Text style={{
+                            marginTop: 10,
+                            fontFamily: fonts.secondary[400],
+                            fontSize: 15,
+                            color: colors.black
+                        }}>{i.pembayaran}</Text>
+
+                        <View style={{
+                            borderBottomWidth: 1,
+                            marginTop: 20,
+                            borderBottomColor: '#D9D9D9'
+                        }} />
+
+                        <Text style={{
+                            marginTop: 20,
+                            fontFamily: fonts.secondary[600],
+                            fontSize: 15,
+                            color: '#4B2F81'
+                        }}>Detail Pembayaran</Text>
+                        <View style={{
+                            marginTop: 10,
+                            flexDirection: 'row',
+                            alignItems: 'center'
+                        }}>
+                            <Text style={{
+
+                                fontFamily: fonts.secondary[400],
+                                fontSize: 15,
+                                flex: 1,
+                                color: '#73777A'
+                            }}>Jenis Pembayaran</Text>
+                            <Text style={{
+
+                                fontFamily: fonts.secondary[600],
+                                fontSize: 15,
+                                color: colors.black
+                            }}>{i.biaya}</Text>
+                        </View>
+
+                        <View style={{
+                            marginTop: 10,
+                            flexDirection: 'row',
+                            alignItems: 'center'
+                        }}>
+                            <Text style={{
+
+                                fontFamily: fonts.secondary[600],
+                                fontSize: 15,
+                                flex: 1,
+                                color: '#73777A'
+                            }}>Total</Text>
+                            <Text style={{
+
+                                fontFamily: fonts.secondary[600],
+                                fontSize: 20,
+                                color: colors.black
+                            }}>{i.biaya}</Text>
+                        </View>
+
+                    </View>
+
+
+                </ImageBackground>
+            </ViewShot>
+            <View style={{
+
+                padding: 10,
             }}>
-                <Image source={{
-                    uri: item.image
-                }} style={{
-                    width: windowWidth,
-                    resizeMode: 'contain',
-                    height: '100%',
+
+                <MyButton title="Bagikan Resi Pembayaran" warna={colors.black} onPress={() => {
+                    Share.open({
+                        url: link,
+                        title: 'Resi Pembayaran SiDani',
+                        message: 'Resi Pembayaran SiDani',
+
+                    }).then(s => {
+                        console.log(s)
+                    })
                 }} />
 
 
-            </View>
-            <Text style={{
 
-                textAlign: 'center',
-                fontFamily: fonts.secondary[600],
-                padding: 30,
-                fontSize: windowWidth / 20,
-                color: colors.black,
-            }}>Rp. {new Intl.NumberFormat().format(item.total_bayar)}</Text>
 
-            <Text style={{
-
-                textAlign: 'center',
-                fontFamily: fonts.secondary[600],
-                backgroundColor: colors.primary,
-                padding: 30,
-                color: colors.white,
-            }}>{item.tipe}</Text>
-            <TouchableOpacity onPress={() => {
-                Alert.alert('Catatan Piutang', 'Apakah kamu yakin akan hapus ini ?', [
-                    {
-                        style: 'cancel',
-                        text: 'Batal'
-                    },
-                    {
-                        style: 'default',
-                        text: 'Hapus',
-                        onPress: () => {
-
-                            console.log(item)
-                            axios.post(apiURL + 'delete_detail.php', {
-                                id_bayar: item.id,
-                                kode: item.kode,
-                                total_bayar: item.total_bayar,
-                                jenis: item.jenis
-                            }).then(res => {
-                                console.log(res.data)
-                                navigation.goBack();
-                            })
-                        }
-                    }
-                ])
-            }} style={{
-                padding: 10,
-                backgroundColor: colors.danger
-            }}>
-                <Text style={{
-                    fontFamily: fonts.secondary[600],
-                    fontSize: windowWidth / 30,
-                    color: colors.white,
-                    textAlign: 'center'
-                }}>Hapus</Text>
-            </TouchableOpacity>
-        </View>
+            </View >
+        </>
     )
-
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-
-});
+const styles = StyleSheet.create({})

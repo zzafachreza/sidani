@@ -111,6 +111,46 @@ export default function TimSetDetail({ navigation, route }) {
                                     fontSize: windowWidth / 30
                                 }}>{i.oleh}</Text>
                             </View>
+                            <View style={{
+                                flexDirection: 'row',
+                                paddingVertical: 5,
+                            }}>
+                                <Text style={{
+                                    flex: 0.5,
+                                    fontFamily: fonts.primary[600],
+                                    fontSize: windowWidth / 30
+                                }}>Biaya</Text>
+                                <Text style={{
+                                    flex: 0.1,
+                                    fontFamily: fonts.primary[600],
+                                    fontSize: windowWidth / 30
+                                }}>:</Text>
+                                <Text style={{
+                                    flex: 1.5,
+                                    fontFamily: fonts.primary[400],
+                                    fontSize: windowWidth / 30
+                                }}>{i.biaya}</Text>
+                            </View>
+                            <View style={{
+                                flexDirection: 'row',
+                                paddingVertical: 5,
+                            }}>
+                                <Text style={{
+                                    flex: 0.5,
+                                    fontFamily: fonts.primary[600],
+                                    fontSize: windowWidth / 30
+                                }}>Pembayaran</Text>
+                                <Text style={{
+                                    flex: 0.1,
+                                    fontFamily: fonts.primary[600],
+                                    fontSize: windowWidth / 30
+                                }}>:</Text>
+                                <Text style={{
+                                    flex: 1.5,
+                                    fontFamily: fonts.primary[400],
+                                    fontSize: windowWidth / 30
+                                }}>{i.pembayaran}</Text>
+                            </View>
                         </View>
 
                         <Text style={{
@@ -377,19 +417,34 @@ export default function TimSetDetail({ navigation, route }) {
                 </ImageBackground>
             </ViewShot>
             <View style={{
+                flexDirection: 'row',
+                justifyContent: 'space-around',
                 padding: 10,
             }}>
-                <MyButton title="Share" warna={colors.black} onPress={() => {
-                    Share.open({
-                        url: link,
-                        title: 'E -Tiket Aplikasi SiDani',
-                        message: 'E -Tiket Aplikasi SiDani',
+                <View style={{
+                    flex: 1,
+                    paddingRight: 5,
+                }}>
+                    <MyButton title="Bagikan" warna={colors.black} onPress={() => {
+                        Share.open({
+                            url: link,
+                            title: 'E -Tiket Aplikasi SiDani',
+                            message: 'E -Tiket Aplikasi SiDani',
 
-                    }).then(s => {
-                        console.log(s)
-                    })
-                }} />
-            </View>
+                        }).then(s => {
+                            console.log(s)
+                        })
+                    }} />
+                </View>
+                <View style={{
+                    flex: 1,
+                    paddingLeft: 5,
+                }}>
+                    <MyButton title="Lihat Resi Pembayaran" warna={colors.secondary} onPress={() => navigation.navigate('SHasil', i)} />
+                </View>
+
+
+            </View >
         </>
     )
 }

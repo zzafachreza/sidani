@@ -22,6 +22,6 @@ export const fonts = {
     700: 'Montserrat-Bold',
     800: 'Montserrat-ExtraBold',
     900: 'Montserrat-Black',
-    normal: 'Fonetis',
+    normal: 'lpmq',
   },
 };

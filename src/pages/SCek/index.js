@@ -88,6 +88,13 @@ export default function SCek({ navigation, route }) {
                                         color: colors.black,
                                     }}>{i.biaya}</Text>
 
+                                    <Text style={{
+                                        fontFamily: fonts.secondary[800],
+                                        fontSize: windowWidth / 35,
+                                        color: colors.secondary,
+                                        textAlign: 'right'
+                                    }}>{i.pembayaran}</Text>
+
                                 </View>
                             </View>
 
