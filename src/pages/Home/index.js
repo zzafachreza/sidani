@@ -117,7 +117,9 @@ export default function Home({ navigation }) {
       }}>
 
         <MyCarouser />
+
         <View style={{
+          marginTop: 20,
           flexDirection: 'row',
           justifyContent: 'space-around'
         }}>
@@ -142,33 +144,6 @@ export default function Home({ navigation }) {
             }}>Daftar Nikah</Text>
           </TouchableOpacity>
 
-        </View>
-
-        <View style={{
-          marginTop: 20,
-          flexDirection: 'row',
-          justifyContent: 'space-around'
-        }}>
-          <TouchableOpacity onPress={() => navigation.navigate('Sedekah')} style={{
-            backgroundColor: colors.primary,
-            width: windowWidth / 4,
-            height: windowHeight / 9,
-            padding: 15,
-            borderRadius: 10,
-          }}>
-            <Image source={require('../../assets/A3.png')} style={{
-              width: windowWidth / 5,
-              height: windowHeight / 20,
-              resizeMode: 'contain'
-            }} />
-            <Text style={{
-              fontFamily: fonts.secondary[400],
-              fontSize: windowWidth / 38,
-              color: colors.white,
-              textAlign: 'center',
-              marginTop: '2%'
-            }}>Sedekah</Text>
-          </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate('KhutbahNikah')} style={{
             borderRadius: 10,
             backgroundColor: colors.primary,
@@ -188,6 +163,26 @@ export default function Home({ navigation }) {
               textAlign: 'center',
               marginTop: '2%'
             }}>Khutbah Nikah</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Sedekah')} style={{
+            backgroundColor: colors.primary,
+            width: windowWidth / 4,
+            height: windowHeight / 9,
+            padding: 15,
+            borderRadius: 10,
+          }}>
+            <Image source={require('../../assets/A3.png')} style={{
+              width: windowWidth / 5,
+              height: windowHeight / 20,
+              resizeMode: 'contain'
+            }} />
+            <Text style={{
+              fontFamily: fonts.secondary[400],
+              fontSize: windowWidth / 38,
+              color: colors.white,
+              textAlign: 'center',
+              marginTop: '2%'
+            }}>Sedekah</Text>
           </TouchableOpacity>
         </View>
       </ImageBackground>
