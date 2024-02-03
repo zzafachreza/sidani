@@ -39,382 +39,426 @@ export default function TimSetDetail({ navigation, route }) {
             <ViewShot style={{
                 flex: 1,
             }} ref={ref} options={{ fileName: i.kode, format: "png", quality: 1 }}>
-                <ImageBackground source={require('../../assets/bck.png')} style={{
-                    flex: 1,
-                    opacity: 1,
-                    backgroundColor: colors.white,
-                    padding: 10,
-                }}>
-                    <View style={{
+                <ScrollView>
+                    <ImageBackground source={require('../../assets/bck.png')} style={{
                         flex: 1,
+                        opacity: 1,
+                        backgroundColor: colors.white,
+                        padding: 10,
                     }}>
-                        {/* header */}
                         <View style={{
+                            flex: 1,
                         }}>
+                            {/* header */}
                             <View style={{
-                                flexDirection: 'row',
-                                paddingVertical: 5,
                             }}>
-                                <Text style={{
-                                    flex: 0.5,
-                                    fontFamily: fonts.primary[600],
-                                    fontSize: windowWidth / 30
-                                }}>Lokasi</Text>
-                                <Text style={{
-                                    flex: 0.1,
-                                    fontFamily: fonts.primary[600],
-                                    fontSize: windowWidth / 30
-                                }}>:</Text>
-                                <Text style={{
-                                    flex: 1.5,
-                                    fontFamily: fonts.primary[400],
-                                    fontSize: windowWidth / 30
-                                }}>{i.lokasi}</Text>
+                                <View style={{
+                                    flexDirection: 'row',
+                                    paddingVertical: 5,
+                                }}>
+                                    <Text style={{
+                                        flex: 0.5,
+                                        fontFamily: fonts.primary[600],
+                                        fontSize: windowWidth / 30
+                                    }}>Lokasi</Text>
+                                    <Text style={{
+                                        flex: 0.1,
+                                        fontFamily: fonts.primary[600],
+                                        fontSize: windowWidth / 30
+                                    }}>:</Text>
+                                    <Text style={{
+                                        flex: 1.5,
+                                        fontFamily: fonts.primary[400],
+                                        fontSize: windowWidth / 30
+                                    }}>{i.lokasi}</Text>
+                                </View>
+                                <View style={{
+                                    flexDirection: 'row',
+                                    paddingVertical: 5,
+                                }}>
+                                    <Text style={{
+                                        flex: 0.5,
+                                        fontFamily: fonts.primary[600],
+                                        fontSize: windowWidth / 30
+                                    }}>Tanggal</Text>
+                                    <Text style={{
+                                        flex: 0.1,
+                                        fontFamily: fonts.primary[600],
+                                        fontSize: windowWidth / 30
+                                    }}>:</Text>
+                                    <Text style={{
+                                        flex: 1.5,
+                                        fontFamily: fonts.primary[400],
+                                        fontSize: windowWidth / 30
+                                    }}>{i.tanggal} Pukul {i.waktu}</Text>
+                                </View>
+                                <View style={{
+                                    flexDirection: 'row',
+                                    paddingVertical: 5,
+                                }}>
+                                    <Text style={{
+                                        flex: 0.5,
+                                        fontFamily: fonts.primary[600],
+                                        fontSize: windowWidth / 30
+                                    }}>Oleh</Text>
+                                    <Text style={{
+                                        flex: 0.1,
+                                        fontFamily: fonts.primary[600],
+                                        fontSize: windowWidth / 30
+                                    }}>:</Text>
+                                    <Text style={{
+                                        flex: 1.5,
+                                        fontFamily: fonts.primary[400],
+                                        fontSize: windowWidth / 30
+                                    }}>{i.oleh}</Text>
+                                </View>
+                                <View style={{
+                                    flexDirection: 'row',
+                                    paddingVertical: 5,
+                                }}>
+                                    <Text style={{
+                                        flex: 0.5,
+                                        fontFamily: fonts.primary[600],
+                                        fontSize: windowWidth / 30
+                                    }}>Biaya</Text>
+                                    <Text style={{
+                                        flex: 0.1,
+                                        fontFamily: fonts.primary[600],
+                                        fontSize: windowWidth / 30
+                                    }}>:</Text>
+                                    <Text style={{
+                                        flex: 1.5,
+                                        fontFamily: fonts.primary[400],
+                                        fontSize: windowWidth / 30
+                                    }}>{i.biaya}</Text>
+                                </View>
+                                <View style={{
+                                    flexDirection: 'row',
+                                    paddingVertical: 5,
+                                }}>
+                                    <Text style={{
+                                        flex: 0.5,
+                                        fontFamily: fonts.primary[600],
+                                        fontSize: windowWidth / 30
+                                    }}>Pembayaran</Text>
+                                    <Text style={{
+                                        flex: 0.1,
+                                        fontFamily: fonts.primary[600],
+                                        fontSize: windowWidth / 30
+                                    }}>:</Text>
+                                    <Text style={{
+                                        flex: 1.5,
+                                        fontFamily: fonts.primary[400],
+                                        fontSize: windowWidth / 30
+                                    }}>{i.pembayaran}</Text>
+                                </View>
                             </View>
+
+                            <Text style={{
+                                padding: 10,
+                                backgroundColor: colors.primary,
+                                color: colors.black,
+                                fontFamily: fonts.secondary[600]
+                            }}>Calon Suami</Text>
                             <View style={{
                                 flexDirection: 'row',
-                                paddingVertical: 5,
+                                padding: 10,
                             }}>
-                                <Text style={{
-                                    flex: 0.5,
-                                    fontFamily: fonts.primary[600],
-                                    fontSize: windowWidth / 30
-                                }}>Tanggal</Text>
-                                <Text style={{
-                                    flex: 0.1,
-                                    fontFamily: fonts.primary[600],
-                                    fontSize: windowWidth / 30
-                                }}>:</Text>
-                                <Text style={{
-                                    flex: 1.5,
-                                    fontFamily: fonts.primary[400],
-                                    fontSize: windowWidth / 30
-                                }}>{i.tanggal} Pukul {i.waktu}</Text>
+                                <View>
+                                    <Image source={{
+                                        uri: i.suami_foto
+                                    }} style={{
+                                        height: 150,
+                                        width: 100,
+                                    }} />
+                                </View>
+                                <View style={{
+                                    flex: 1,
+                                }}>
+                                    <View style={{
+                                        flexDirection: 'row',
+                                        paddingVertical: 5,
+                                        paddingHorizontal: 10,
+                                    }}>
+                                        <Text style={{
+                                            flex: 0.5,
+                                            fontFamily: fonts.primary[600],
+                                            fontSize: windowWidth / 30
+                                        }}>Nama</Text>
+                                        <Text style={{
+                                            flex: 0.1,
+                                            fontFamily: fonts.primary[600],
+                                            fontSize: windowWidth / 30
+                                        }}>:</Text>
+                                        <Text style={{
+                                            flex: 1.5,
+                                            fontFamily: fonts.primary[400],
+                                            fontSize: windowWidth / 30
+                                        }}>{i.suami_nama}</Text>
+                                    </View>
+                                    <View style={{
+                                        flexDirection: 'row',
+                                        paddingVertical: 5,
+                                        paddingHorizontal: 10,
+                                    }}>
+                                        <Text style={{
+                                            flex: 0.5,
+                                            fontFamily: fonts.primary[600],
+                                            fontSize: windowWidth / 30
+                                        }}>TTL</Text>
+                                        <Text style={{
+                                            flex: 0.1,
+                                            fontFamily: fonts.primary[600],
+                                            fontSize: windowWidth / 30
+                                        }}>:</Text>
+                                        <Text style={{
+                                            flex: 1.5,
+                                            fontFamily: fonts.primary[400],
+                                            fontSize: windowWidth / 30
+                                        }}>{i.suami_tempat_lahir}, {i.suami_tanggal_lahir}</Text>
+                                    </View>
+                                    <View style={{
+                                        flexDirection: 'row',
+                                        paddingVertical: 5,
+                                        paddingHorizontal: 10,
+                                    }}>
+                                        <Text style={{
+                                            flex: 0.5,
+                                            fontFamily: fonts.primary[600],
+                                            fontSize: windowWidth / 30
+                                        }}>Telepon</Text>
+                                        <Text style={{
+                                            flex: 0.1,
+                                            fontFamily: fonts.primary[600],
+                                            fontSize: windowWidth / 30
+                                        }}>:</Text>
+                                        <Text style={{
+                                            flex: 1.5,
+                                            fontFamily: fonts.primary[400],
+                                            fontSize: windowWidth / 30
+                                        }}>{i.suami_telepon}</Text>
+                                    </View>
+                                    <View style={{
+                                        flexDirection: 'row',
+                                        paddingVertical: 5,
+                                        paddingHorizontal: 10,
+                                    }}>
+                                        <Text style={{
+                                            flex: 0.5,
+                                            fontFamily: fonts.primary[600],
+                                            fontSize: windowWidth / 30
+                                        }}>Pekerjaan</Text>
+                                        <Text style={{
+                                            flex: 0.1,
+                                            fontFamily: fonts.primary[600],
+                                            fontSize: windowWidth / 30
+                                        }}>:</Text>
+                                        <Text style={{
+                                            flex: 1.5,
+                                            fontFamily: fonts.primary[400],
+                                            fontSize: windowWidth / 30
+                                        }}>{i.suami_pekerjaan}</Text>
+                                    </View>
+                                    <View style={{
+                                        flexDirection: 'row',
+                                        paddingVertical: 5,
+                                        paddingHorizontal: 10,
+                                    }}>
+                                        <Text style={{
+                                            flex: 0.5,
+                                            fontFamily: fonts.primary[600],
+                                            fontSize: windowWidth / 30
+                                        }}>Alamat</Text>
+                                        <Text style={{
+                                            flex: 0.1,
+                                            fontFamily: fonts.primary[600],
+                                            fontSize: windowWidth / 30
+                                        }}>:</Text>
+                                        <Text style={{
+                                            flex: 1.5,
+                                            fontFamily: fonts.primary[400],
+                                            fontSize: windowWidth / 30
+                                        }}>{i.suami_alamat}</Text>
+                                    </View>
+                                    <View style={{
+                                        flexDirection: 'row',
+                                        paddingVertical: 5,
+                                        paddingHorizontal: 10,
+                                    }}>
+                                        <Text style={{
+                                            flex: 0.5,
+                                            fontFamily: fonts.primary[600],
+                                            fontSize: windowWidth / 30
+                                        }}>Nama Orang Tua</Text>
+                                        <Text style={{
+                                            flex: 0.1,
+                                            fontFamily: fonts.primary[600],
+                                            fontSize: windowWidth / 30
+                                        }}>:</Text>
+                                        <Text style={{
+                                            flex: 1.5,
+                                            fontFamily: fonts.primary[400],
+                                            fontSize: windowWidth / 30
+                                        }}>{i.suami_orangtua}</Text>
+                                    </View>
+                                </View>
                             </View>
+
+
+                            <Text style={{
+                                padding: 10,
+                                backgroundColor: colors.primary,
+                                color: colors.black,
+                                fontFamily: fonts.secondary[600]
+                            }}>Calon Istri</Text>
                             <View style={{
                                 flexDirection: 'row',
-                                paddingVertical: 5,
+                                padding: 10,
                             }}>
-                                <Text style={{
-                                    flex: 0.5,
-                                    fontFamily: fonts.primary[600],
-                                    fontSize: windowWidth / 30
-                                }}>Oleh</Text>
-                                <Text style={{
-                                    flex: 0.1,
-                                    fontFamily: fonts.primary[600],
-                                    fontSize: windowWidth / 30
-                                }}>:</Text>
-                                <Text style={{
-                                    flex: 1.5,
-                                    fontFamily: fonts.primary[400],
-                                    fontSize: windowWidth / 30
-                                }}>{i.oleh}</Text>
-                            </View>
-                            <View style={{
-                                flexDirection: 'row',
-                                paddingVertical: 5,
-                            }}>
-                                <Text style={{
-                                    flex: 0.5,
-                                    fontFamily: fonts.primary[600],
-                                    fontSize: windowWidth / 30
-                                }}>Biaya</Text>
-                                <Text style={{
-                                    flex: 0.1,
-                                    fontFamily: fonts.primary[600],
-                                    fontSize: windowWidth / 30
-                                }}>:</Text>
-                                <Text style={{
-                                    flex: 1.5,
-                                    fontFamily: fonts.primary[400],
-                                    fontSize: windowWidth / 30
-                                }}>{i.biaya}</Text>
-                            </View>
-                            <View style={{
-                                flexDirection: 'row',
-                                paddingVertical: 5,
-                            }}>
-                                <Text style={{
-                                    flex: 0.5,
-                                    fontFamily: fonts.primary[600],
-                                    fontSize: windowWidth / 30
-                                }}>Pembayaran</Text>
-                                <Text style={{
-                                    flex: 0.1,
-                                    fontFamily: fonts.primary[600],
-                                    fontSize: windowWidth / 30
-                                }}>:</Text>
-                                <Text style={{
-                                    flex: 1.5,
-                                    fontFamily: fonts.primary[400],
-                                    fontSize: windowWidth / 30
-                                }}>{i.pembayaran}</Text>
+                                <View>
+                                    <Image source={{
+                                        uri: i.istri_foto
+                                    }} style={{
+                                        height: 150,
+                                        width: 100,
+                                    }} />
+                                </View>
+                                <View style={{
+                                    flex: 1,
+                                }}>
+                                    <View style={{
+                                        flexDirection: 'row',
+                                        paddingVertical: 5,
+                                        paddingHorizontal: 10,
+                                    }}>
+                                        <Text style={{
+                                            flex: 0.5,
+                                            fontFamily: fonts.primary[600],
+                                            fontSize: windowWidth / 30
+                                        }}>Nama</Text>
+                                        <Text style={{
+                                            flex: 0.1,
+                                            fontFamily: fonts.primary[600],
+                                            fontSize: windowWidth / 30
+                                        }}>:</Text>
+                                        <Text style={{
+                                            flex: 1.5,
+                                            fontFamily: fonts.primary[400],
+                                            fontSize: windowWidth / 30
+                                        }}>{i.istri_nama}</Text>
+                                    </View>
+                                    <View style={{
+                                        flexDirection: 'row',
+                                        paddingVertical: 5,
+                                        paddingHorizontal: 10,
+                                    }}>
+                                        <Text style={{
+                                            flex: 0.5,
+                                            fontFamily: fonts.primary[600],
+                                            fontSize: windowWidth / 30
+                                        }}>TTL</Text>
+                                        <Text style={{
+                                            flex: 0.1,
+                                            fontFamily: fonts.primary[600],
+                                            fontSize: windowWidth / 30
+                                        }}>:</Text>
+                                        <Text style={{
+                                            flex: 1.5,
+                                            fontFamily: fonts.primary[400],
+                                            fontSize: windowWidth / 30
+                                        }}>{i.istri_tempat_lahir}, {i.istri_tanggal_lahir}</Text>
+                                    </View>
+                                    <View style={{
+                                        flexDirection: 'row',
+                                        paddingVertical: 5,
+                                        paddingHorizontal: 10,
+                                    }}>
+                                        <Text style={{
+                                            flex: 0.5,
+                                            fontFamily: fonts.primary[600],
+                                            fontSize: windowWidth / 30
+                                        }}>Telepon</Text>
+                                        <Text style={{
+                                            flex: 0.1,
+                                            fontFamily: fonts.primary[600],
+                                            fontSize: windowWidth / 30
+                                        }}>:</Text>
+                                        <Text style={{
+                                            flex: 1.5,
+                                            fontFamily: fonts.primary[400],
+                                            fontSize: windowWidth / 30
+                                        }}>{i.istri_telepon}</Text>
+                                    </View>
+                                    <View style={{
+                                        flexDirection: 'row',
+                                        paddingVertical: 5,
+                                        paddingHorizontal: 10,
+                                    }}>
+                                        <Text style={{
+                                            flex: 0.5,
+                                            fontFamily: fonts.primary[600],
+                                            fontSize: windowWidth / 30
+                                        }}>Pekerjaan</Text>
+                                        <Text style={{
+                                            flex: 0.1,
+                                            fontFamily: fonts.primary[600],
+                                            fontSize: windowWidth / 30
+                                        }}>:</Text>
+                                        <Text style={{
+                                            flex: 1.5,
+                                            fontFamily: fonts.primary[400],
+                                            fontSize: windowWidth / 30
+                                        }}>{i.istri_pekerjaan}</Text>
+                                    </View>
+                                    <View style={{
+                                        flexDirection: 'row',
+                                        paddingVertical: 5,
+                                        paddingHorizontal: 10,
+                                    }}>
+                                        <Text style={{
+                                            flex: 0.5,
+                                            fontFamily: fonts.primary[600],
+                                            fontSize: windowWidth / 30
+                                        }}>Alamat</Text>
+                                        <Text style={{
+                                            flex: 0.1,
+                                            fontFamily: fonts.primary[600],
+                                            fontSize: windowWidth / 30
+                                        }}>:</Text>
+                                        <Text style={{
+                                            flex: 1.5,
+                                            fontFamily: fonts.primary[400],
+                                            fontSize: windowWidth / 30
+                                        }}>{i.istri_alamat}</Text>
+                                    </View>
+                                    <View style={{
+                                        flexDirection: 'row',
+                                        paddingVertical: 5,
+                                        paddingHorizontal: 10,
+                                    }}>
+                                        <Text style={{
+                                            flex: 0.5,
+                                            fontFamily: fonts.primary[600],
+                                            fontSize: windowWidth / 30
+                                        }}>Nama Orang Tua</Text>
+                                        <Text style={{
+                                            flex: 0.1,
+                                            fontFamily: fonts.primary[600],
+                                            fontSize: windowWidth / 30
+                                        }}>:</Text>
+                                        <Text style={{
+                                            flex: 1.5,
+                                            fontFamily: fonts.primary[400],
+                                            fontSize: windowWidth / 30
+                                        }}>{i.istri_orangtua}</Text>
+                                    </View>
+                                </View>
                             </View>
                         </View>
 
-                        <Text style={{
-                            padding: 10,
-                            backgroundColor: colors.primary,
-                            color: colors.black,
-                            fontFamily: fonts.secondary[600]
-                        }}>Calon Suami</Text>
-                        <View style={{
-                            flexDirection: 'row',
-                            padding: 10,
-                        }}>
-                            <View>
-                                <Image source={{
-                                    uri: i.suami_foto
-                                }} style={{
-                                    height: 150,
-                                    width: 100,
-                                }} />
-                            </View>
-                            <View style={{
-                                flex: 1,
-                            }}>
-                                <View style={{
-                                    flexDirection: 'row',
-                                    paddingVertical: 5,
-                                    paddingHorizontal: 10,
-                                }}>
-                                    <Text style={{
-                                        flex: 0.5,
-                                        fontFamily: fonts.primary[600],
-                                        fontSize: windowWidth / 30
-                                    }}>Nama</Text>
-                                    <Text style={{
-                                        flex: 0.1,
-                                        fontFamily: fonts.primary[600],
-                                        fontSize: windowWidth / 30
-                                    }}>:</Text>
-                                    <Text style={{
-                                        flex: 1.5,
-                                        fontFamily: fonts.primary[400],
-                                        fontSize: windowWidth / 30
-                                    }}>{i.suami_nama}</Text>
-                                </View>
-                                <View style={{
-                                    flexDirection: 'row',
-                                    paddingVertical: 5,
-                                    paddingHorizontal: 10,
-                                }}>
-                                    <Text style={{
-                                        flex: 0.5,
-                                        fontFamily: fonts.primary[600],
-                                        fontSize: windowWidth / 30
-                                    }}>TTL</Text>
-                                    <Text style={{
-                                        flex: 0.1,
-                                        fontFamily: fonts.primary[600],
-                                        fontSize: windowWidth / 30
-                                    }}>:</Text>
-                                    <Text style={{
-                                        flex: 1.5,
-                                        fontFamily: fonts.primary[400],
-                                        fontSize: windowWidth / 30
-                                    }}>{i.suami_tempat_lahir}, {i.suami_tanggal_lahir}</Text>
-                                </View>
-                                <View style={{
-                                    flexDirection: 'row',
-                                    paddingVertical: 5,
-                                    paddingHorizontal: 10,
-                                }}>
-                                    <Text style={{
-                                        flex: 0.5,
-                                        fontFamily: fonts.primary[600],
-                                        fontSize: windowWidth / 30
-                                    }}>Telepon</Text>
-                                    <Text style={{
-                                        flex: 0.1,
-                                        fontFamily: fonts.primary[600],
-                                        fontSize: windowWidth / 30
-                                    }}>:</Text>
-                                    <Text style={{
-                                        flex: 1.5,
-                                        fontFamily: fonts.primary[400],
-                                        fontSize: windowWidth / 30
-                                    }}>{i.suami_telepon}</Text>
-                                </View>
-                                <View style={{
-                                    flexDirection: 'row',
-                                    paddingVertical: 5,
-                                    paddingHorizontal: 10,
-                                }}>
-                                    <Text style={{
-                                        flex: 0.5,
-                                        fontFamily: fonts.primary[600],
-                                        fontSize: windowWidth / 30
-                                    }}>Pekerjaan</Text>
-                                    <Text style={{
-                                        flex: 0.1,
-                                        fontFamily: fonts.primary[600],
-                                        fontSize: windowWidth / 30
-                                    }}>:</Text>
-                                    <Text style={{
-                                        flex: 1.5,
-                                        fontFamily: fonts.primary[400],
-                                        fontSize: windowWidth / 30
-                                    }}>{i.suami_pekerjaan}</Text>
-                                </View>
-                                <View style={{
-                                    flexDirection: 'row',
-                                    paddingVertical: 5,
-                                    paddingHorizontal: 10,
-                                }}>
-                                    <Text style={{
-                                        flex: 0.5,
-                                        fontFamily: fonts.primary[600],
-                                        fontSize: windowWidth / 30
-                                    }}>Alamat</Text>
-                                    <Text style={{
-                                        flex: 0.1,
-                                        fontFamily: fonts.primary[600],
-                                        fontSize: windowWidth / 30
-                                    }}>:</Text>
-                                    <Text style={{
-                                        flex: 1.5,
-                                        fontFamily: fonts.primary[400],
-                                        fontSize: windowWidth / 30
-                                    }}>{i.suami_alamat}</Text>
-                                </View>
-                            </View>
-                        </View>
 
-
-                        <Text style={{
-                            padding: 10,
-                            backgroundColor: colors.primary,
-                            color: colors.black,
-                            fontFamily: fonts.secondary[600]
-                        }}>Calon Istri</Text>
-                        <View style={{
-                            flexDirection: 'row',
-                            padding: 10,
-                        }}>
-                            <View>
-                                <Image source={{
-                                    uri: i.istri_foto
-                                }} style={{
-                                    height: 150,
-                                    width: 100,
-                                }} />
-                            </View>
-                            <View style={{
-                                flex: 1,
-                            }}>
-                                <View style={{
-                                    flexDirection: 'row',
-                                    paddingVertical: 5,
-                                    paddingHorizontal: 10,
-                                }}>
-                                    <Text style={{
-                                        flex: 0.5,
-                                        fontFamily: fonts.primary[600],
-                                        fontSize: windowWidth / 30
-                                    }}>Nama</Text>
-                                    <Text style={{
-                                        flex: 0.1,
-                                        fontFamily: fonts.primary[600],
-                                        fontSize: windowWidth / 30
-                                    }}>:</Text>
-                                    <Text style={{
-                                        flex: 1.5,
-                                        fontFamily: fonts.primary[400],
-                                        fontSize: windowWidth / 30
-                                    }}>{i.istri_nama}</Text>
-                                </View>
-                                <View style={{
-                                    flexDirection: 'row',
-                                    paddingVertical: 5,
-                                    paddingHorizontal: 10,
-                                }}>
-                                    <Text style={{
-                                        flex: 0.5,
-                                        fontFamily: fonts.primary[600],
-                                        fontSize: windowWidth / 30
-                                    }}>TTL</Text>
-                                    <Text style={{
-                                        flex: 0.1,
-                                        fontFamily: fonts.primary[600],
-                                        fontSize: windowWidth / 30
-                                    }}>:</Text>
-                                    <Text style={{
-                                        flex: 1.5,
-                                        fontFamily: fonts.primary[400],
-                                        fontSize: windowWidth / 30
-                                    }}>{i.istri_tempat_lahir}, {i.istri_tanggal_lahir}</Text>
-                                </View>
-                                <View style={{
-                                    flexDirection: 'row',
-                                    paddingVertical: 5,
-                                    paddingHorizontal: 10,
-                                }}>
-                                    <Text style={{
-                                        flex: 0.5,
-                                        fontFamily: fonts.primary[600],
-                                        fontSize: windowWidth / 30
-                                    }}>Telepon</Text>
-                                    <Text style={{
-                                        flex: 0.1,
-                                        fontFamily: fonts.primary[600],
-                                        fontSize: windowWidth / 30
-                                    }}>:</Text>
-                                    <Text style={{
-                                        flex: 1.5,
-                                        fontFamily: fonts.primary[400],
-                                        fontSize: windowWidth / 30
-                                    }}>{i.istri_telepon}</Text>
-                                </View>
-                                <View style={{
-                                    flexDirection: 'row',
-                                    paddingVertical: 5,
-                                    paddingHorizontal: 10,
-                                }}>
-                                    <Text style={{
-                                        flex: 0.5,
-                                        fontFamily: fonts.primary[600],
-                                        fontSize: windowWidth / 30
-                                    }}>Pekerjaan</Text>
-                                    <Text style={{
-                                        flex: 0.1,
-                                        fontFamily: fonts.primary[600],
-                                        fontSize: windowWidth / 30
-                                    }}>:</Text>
-                                    <Text style={{
-                                        flex: 1.5,
-                                        fontFamily: fonts.primary[400],
-                                        fontSize: windowWidth / 30
-                                    }}>{i.istri_pekerjaan}</Text>
-                                </View>
-                                <View style={{
-                                    flexDirection: 'row',
-                                    paddingVertical: 5,
-                                    paddingHorizontal: 10,
-                                }}>
-                                    <Text style={{
-                                        flex: 0.5,
-                                        fontFamily: fonts.primary[600],
-                                        fontSize: windowWidth / 30
-                                    }}>Alamat</Text>
-                                    <Text style={{
-                                        flex: 0.1,
-                                        fontFamily: fonts.primary[600],
-                                        fontSize: windowWidth / 30
-                                    }}>:</Text>
-                                    <Text style={{
-                                        flex: 1.5,
-                                        fontFamily: fonts.primary[400],
-                                        fontSize: windowWidth / 30
-                                    }}>{i.istri_alamat}</Text>
-                                </View>
-                            </View>
-                        </View>
-                    </View>
-
-
-                </ImageBackground>
+                    </ImageBackground>
+                </ScrollView>
             </ViewShot>
             <View style={{
                 flexDirection: 'row',

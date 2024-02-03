@@ -18,7 +18,7 @@ export default function SAdd({ navigation, route }) {
 
     const [kirim, setKirim] = useState({
         fid_user: route.params.id,
-        tanggal: new Date(),
+        tanggal: '',
         waktu: '08.00 - 09.00 WIB',
         oleh: 'Wali Sendiri',
         lokasi: 'Masjid Agung Baitul Makmur Meulaboh'
@@ -86,7 +86,22 @@ export default function SAdd({ navigation, route }) {
                         }
                         // ... You can check the source to find the other keys.
                     }}
-                    onDateChange={(date) => setKirim({ ...kirim, tanggal: date })}
+                    onDateChange={(date) => {
+                        console.log(date);
+
+                        axios.post(apiURL + '1cek_tanggal.php', {
+                            tanggal: date,
+                        }).then(res => {
+                            if (res.data.status == 404) {
+                                setKirim({ ...kirim, tanggal: date });
+                                showMessage({ type: 'success', message: 'Tanggal tersedia !' })
+                            } else if (res.data.status == 200) {
+                                Alert.alert('MOHON MAAF', 'Untuk tanggal ' + date + ' ada kegiatan/acara ' + res.data.data.acara)
+                            }
+                        })
+
+
+                    }}
                 />
                 <Text style={{
                     marginTop: 20,

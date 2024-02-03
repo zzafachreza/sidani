@@ -237,6 +237,15 @@ export default function SAddIstri({ navigation, route }) {
                     })
                 }} iconname="home" placeholder="masukan alamat" />
 
+                <MyGap jarak={10} />
+                <MyInput value={kirim.istri_orangtua} label="Nama Orang Tua" onChangeText={x => {
+
+                    setKirim({
+                        ...kirim,
+                        istri_orangtua: x
+                    })
+                }} iconname="people" placeholder="masukan nama orang tua" />
+
                 <MyGap jarak={20} />
                 <UploadFoto onPress2={() => getGallery(1)} label="Upload pas foto (latar biru)" />
                 <MyGap jarak={20} />

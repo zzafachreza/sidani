@@ -35,12 +35,12 @@ android_library(
 
 android_build_config(
     name = "build_config",
-    package = "com.sidani",
+    package = "com.sidaniapps",
 )
 
 android_resource(
     name = "res",
-    package = "com.sidani",
+    package = "com.sidaniapps",
     res = "src/main/res",
 )
 

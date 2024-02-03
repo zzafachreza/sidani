@@ -177,7 +177,6 @@ export default function SAddTrf({ navigation, route }) {
                     })
                 }} data={[
                     { value: 'TRANSFER', label: 'TRANSFER' },
-                    { value: 'CASH', label: 'CASH' },
 
                 ]} />
 
