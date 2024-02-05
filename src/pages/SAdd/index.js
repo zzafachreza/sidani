@@ -34,7 +34,19 @@ export default function SAdd({ navigation, route }) {
             if (res.data == 404) {
                 Alert.alert('SiDani', 'Maaf Tanggal dan Waktu sudah terisi, silahkan ganti tanggal atau waktu yang lain');
             } else {
-                navigation.navigate('SAddSuami', kirim);
+
+                axios.post(apiURL + '1cek_tanggal.php', {
+                    tanggal: kirim.tanggal,
+                    waktu: kirim.waktu
+                }).then(res => {
+                    if (res.data.status == 404) {
+                        navigation.navigate('SAddSuami', kirim);
+                        showMessage({ type: 'success', message: 'Tanggal dan waktu tersedia !' })
+                    } else if (res.data.status == 200) {
+
+                        Alert.alert('MOHON MAAF', 'Untuk tanggal ' + kirim.tanggal + ' dan waktu ' + kirim.waktu + ' ada kegiatan/acara ' + res.data.data.acara)
+                    }
+                })
             }
         })
     }
@@ -88,17 +100,11 @@ export default function SAdd({ navigation, route }) {
                     }}
                     onDateChange={(date) => {
                         console.log(date);
+                        setKirim({
+                            ...kirim,
+                            tanggal: date
+                        });
 
-                        axios.post(apiURL + '1cek_tanggal.php', {
-                            tanggal: date,
-                        }).then(res => {
-                            if (res.data.status == 404) {
-                                setKirim({ ...kirim, tanggal: date });
-                                showMessage({ type: 'success', message: 'Tanggal tersedia !' })
-                            } else if (res.data.status == 200) {
-                                Alert.alert('MOHON MAAF', 'Untuk tanggal ' + date + ' ada kegiatan/acara ' + res.data.data.acara)
-                            }
-                        })
 
 
                     }}
@@ -156,12 +162,14 @@ export default function SAdd({ navigation, route }) {
                 }}>17.00 - 18.00 WIB</Text>
                 <MyGap jarak={10} />
                 <MyPicker onValueChange={x => {
+
+
                     setKirim({
                         ...kirim,
                         waktu: x
-                    })
-                }} iconname="time" label="Waktu" data={[
+                    });
 
+                }} iconname="time" label="Waktu" data={[
                     {
                         label: '08.00 - 09.00 WIB',
                         value: '08.00 - 09.00 WIB'
